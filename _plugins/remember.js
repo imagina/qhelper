@@ -1,6 +1,6 @@
 import {Cookies, LocalStorage} from 'quasar'
-import Config from '../../../../src/config/index'
-import {helper} from '@imagina/qhelper/_plugins/helper'
+import Config from 'src/config/index'
+import {helper} from '@imagina/qhelper/_plugins/helper';
 
 class Remember {
 
@@ -32,14 +32,21 @@ class Remember {
 
       if (difference >= seconds || !data) {
         callback().then(response => {
-          helper.storage.set(key, {
-            data: response.data.data,
-            meta: response.data.meta ? response.data.meta : '',
-            updated_at: helper.timestamp()
-          })
+
+          try {
+            this.storage.set(key, {
+              data: response.data.data,
+              meta: response.data.meta ? response.data.meta : '',
+              updated_at: helper.timestamp()
+            })
+          } catch(error) {
+            console.log(error)
+          }
+
           resolve(response.data);
         })
           .catch(error => {
+            console.log(error);
             reject(error);
           });
       } else {
@@ -54,7 +61,7 @@ const remember = new Remember();
 
 export default ({Vue}) => {
 
-  Vue.prototype.$helper = remember;
+  Vue.prototype.$remember = remember;
 
 }
 

@@ -1,5 +1,5 @@
 import {Cookies, LocalStorage, Loading, QSpinnerHourglass} from 'quasar'
-import Config from '../../../../src/config/index'
+import Config from 'src/config/index'
 import {Notify} from 'quasar'
 
 class Helper {
