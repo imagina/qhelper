@@ -1,6 +1,5 @@
 {
   "_from": "@imagina/qhelper",
-  "_id": "@imagina/qhelper@0.0.1",
   "_inBundle": false,
   "_integrity": "sha512-UHIpWNNCDS3DR7TGHSx8O44YoGut+75ADjfbKXUpiSinqxhR51rqp8KsEbq9rcwGoJE/gxqe/z7k4gYmut984Q==",
   "_location": "/@imagina/qhelper",
@@ -24,9 +23,7 @@
   "_shasum": "63c1be5dd96769f3c82265343e1462ca84bfa700",
   "_spec": "@imagina/qhelper",
   "_where": "D:\\Imagina\\html\\fhaproducts2018_frontend",
-  "author": {
-    "name": "http://imaginacolombia.com/"
-  },
+  "author": "http://imaginacolombia.com/",
   "bugs": {
     "url": "https://github.com/imagina/qhelper/issues"
   },
