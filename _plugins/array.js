@@ -5,11 +5,7 @@ import http from "axios/index";
 class Array {
 
   constructor() {
-    this.storages = {
-      Cookies,
-      LocalStorage
-    };
-    this.storage = this.storages[Config('auth.default_storage')];
+
   }
 
   /*order array in tree*/
@@ -113,7 +109,7 @@ class Array {
    * @Return{array} = [1,2,3...] ID of all children
    *
    */
-  children(dataArray, id, excludeParent,type) {
+  children(dataArray, id, excludeParent, type) {
     /*recursive function*/
     let childrens = (parent_id) => {
       let response = []
@@ -121,7 +117,7 @@ class Array {
       //add to "response" the ID children of parent_id
       dataArray.filter((item) => {
         if (item.parent_id == parent_id) {
-          if(!type)
+          if (!type)
             response.push(item.id)
           else
             response.push(item)
@@ -146,13 +142,13 @@ class Array {
   diff(arr1, arr2) {
     var diff = {};
 
-    diff.arr1 = arr1.filter(function(value) {
+    diff.arr1 = arr1.filter(function (value) {
       if (arr2.indexOf(value) === -1) {
         return value;
       }
     });
 
-    diff.arr2 = arr2.filter(function(value) {
+    diff.arr2 = arr2.filter(function (value) {
       if (arr1.indexOf(value) === -1) {
         return value;
       }
@@ -164,11 +160,11 @@ class Array {
   };
 
   /* find into array by param*/
-  findByTag(array,tag,value){
+  findByTag(array, tag, value) {
     let response = false
-    if(array && tag && value){
+    if (array && tag && value) {
       array.forEach((item) => {
-        if(item[tag].toString() === value.toString()){
+        if (item[tag].toString() === value.toString()) {
           response = item
         }
       })

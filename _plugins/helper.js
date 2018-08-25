@@ -1,15 +1,12 @@
 import {Cookies, LocalStorage, Loading, QSpinnerHourglass} from 'quasar'
 import Config from 'src/config/index'
+import {Forage} from '@imagina/qhelper/_plugins/localForage' //LocalForage
 import {Notify} from 'quasar'
 
 class Helper {
 
   constructor() {
-    this.storages = {
-      Cookies,
-      LocalStorage
-    };
-    this.storage = this.storages[Config('auth.default_storage')];
+    this.storage = Forage
   }
 
   loadingShow() {
@@ -24,7 +21,7 @@ class Helper {
     })
   }
 
-  loadinghidden() {
+  loadingHidden() {
     Loading.hide();
   }
 
@@ -107,7 +104,7 @@ class Helper {
       "July", "August", "September", "October", "November", "December"
     ];
 
-   return [
+    return [
       {label: months[d.getMonth() - 1], value: 'lastMonth'},
       {label: months[d.getMonth()], value: 'currentMonth'},
       {label: 'Today', value: 'today'}
@@ -119,8 +116,8 @@ class Helper {
    * @param data type {string} required
    *
    */
-  clearCache(data) {
-    for (var key in this.storage.get.all()) {
+  async clearCache(data) {
+    for (var key in await this.storage.get.all()) {
       if (key.indexOf(data) > -1)
         this.storage.remove(key);
     }

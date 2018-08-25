@@ -1,84 +1,127 @@
-##Module User
-Module with CRUD for users, and profile admin.
+##Module Qhelper
+Module with plugins helpers
+#
 
-##Required
+###Plugin: Helper
+- ####Usage 
+  *There are two ways to use it:*
+  ```js
+  1. import {helper} from '@imagina/qhelper/_plugins/helper'
+  2. require('@imagina/qhelper/_plugins/helper').default
+  ```
 
-####Plugins
-- helper
-- vuelidate
-- axios
+- ####Methods
+  _Search into storage a element by index name_
+  > storage.get.item({String})
+  
+  _Search in storage one or more items by index name_
+  > storage.get.items({Array}) 
+  
+  _Return all elements stored_
+  > storage.get.all()
+  
+  _Create or update a element in storage_
+  > storage.set(index{String},data)
+  
+  _Remove a element from storage by index name_
+  > storage.remove({String})
+  
+  _Delete all elements from storage_
+  > storage.clear()
+  
+  _Show loader in full screen_
+  > loadingShow()
+  
+  _Hidden loader in full screen_
+  > loadingHidden()
+  
+  _Return timestamp in seconds unix_
+  > timestamp()
+  
+  _Format US phone_
+  > maskPhone({String})
+  
+  _Get only integers from string_
+  > getInt({String})
+  
+  _Get a date range from today or current month or last month / options: 'today','currentMonth','lastMonth'_
+  > rangeDate(option{String})
+  
+#
+###Plugin: Alert
+- ####Usage 
+  *There are two ways to use it:*
+  ```js
+  1. import {alert} from '@imagina/qhelper/_plugins/alert'
+  2. require('@imagina/qhelper/_plugins/alert').default
+  ```
 
-
-##Usage
-
-####Routes and Middleware
-
-In file `src/router/routes` add:
-```js
-import user from '@imagina/quser/_router/routes' //Routes module
-import auth from '@imagina/quser/_router/middlewares/auth' //Middleware auth
-import access from '@imagina/quser/_router/middlewares/access' //Middleware access
-```
-
-####Stores
-
-In file `src/store/index` add:
-```js
-import auth from '@imagina/quser/_store/auth/index'; //Import this file //Import this file
-Vue.use(Vuex)
-const store = new Vuex.Store({
-  modules: {
-    auth //Add authStore
-  }
-});
-```
-
-####Config
-
-In file `src/config/index` add:
-```js
-import auth from '@imagina/quser/_config/auth'; //Import this file
-```
-####Slidebar
-in file `src/config/slidebar` add:
-```js
-/*User*/
-user: {
-  title: 'Users',
-  icon: 'fas fa-users',
-  children: [
-    {
-      title: 'Create',
-      icon: 'fas fa-user-plus',
-      to: 'user.users.create',
-      can:'user.users.create'
-    },
-    {
-      title: 'List/Search',
-      icon: 'fas fa-list-alt',
-      to: 'user.users.index',
-      can:'user.users.index'
-    },
-    {
-      title: 'My profile',
-      icon: 'fas fa-user-tie',
-      to: 'user.profile.me'
+- ####Methods
+  _You can call a float message with a color and icon reference to message (`success`,`error`,`info`,`warning`,`light`,`dark`)_
+  
+  Parameters:
+  - `message` : _String with message to show / default : 'Notify'_
+  - `position` : _String with notification position/ default : 'top-right'_
+  - `action` : _If you need do callback in a action from notification, add this parameter'_
+  ```js
+    @action {object}{
+      label: {string} // optional / default : 'Ok'
+      icon: {string} // optional
+      handler: {F}callback() // optional / default : dimiss notify
     }
-  ]
-},
-/*logout*/
-logout: {
-  title: 'Sign out',
-  icon: 'fas fa-sign-out-alt',
-  to: 'auth.logout'
-}
-```
+  ```
+  
+  Example:
+  ```js
+    alert.success('Message','botton',{
+      label : 'Ok',
+      handler : function(){}
+    })
+  ```
+  
+#
+###Plugin: Array
+- ####Usage 
+  *There are two ways to use it:*
+  ```js
+  1. import {array} from '@imagina/qhelper/_plugins/array'
+  2. require('@imagina/qhelper/_plugins/array').default
+  ```
 
-##Components
-- widget-use: component with route to my profile and sign out:
+- ####Methods
+  
+  _Order a array in tree format_
+  > tree({Array})
+  
+  _Order a array in object for input select_
+  > select({Array})
 
-`import WidgetUser from "@imagina/quser/_components/widget-user";`
+  _Search all parents in array by parent_id_
+  > parents({Array},parentId{Int})
+  
+  _Search all children in array by parent_id_
+  > children({Array},parentId{Int})
+  
+  _Search diff between two array_
+  > diff({Array},{Array})
+  
+  _Search in array by parameter_
+  > findByTag({Array},tag{String},value{String})
 
-##Plugins
-- auth: plugin with method `hasAccess` for validate user permisions
-`import {authPlugin} from "@imagina/quser/_plugins/auth";` or define it in data like`auth: require('@imagina/quser/_plugins/auth').default`
+
+#
+###Plugin: Remember
+- ####Usage 
+  *There are two ways to use it:*
+  ```js
+  1. import {remember} from '@imagina/qhelper/_plugins/remember'
+  2. require('@imagina/qhelper/_plugins/remember').default
+  ```
+
+- ####Methods
+  
+  _Remember data or execute it callback `SYNC`_
+  > sync(key{String}, seconds{Int}, callback{function})
+  
+  _Remember data or execute it callback `ASYNC`_
+  > async(key{String}, seconds{Int}, callback{function})
