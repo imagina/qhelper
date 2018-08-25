@@ -68,7 +68,7 @@ class Alert {
         timeout: action ? 0 : 2500,
         color: this.color,
         position: this.pos,
-        actions: !action ? [] : [
+        actions: action ? action : [
           {
             label: action.label ? action.label : 'Ok',
             icon: action.icon ? action.icon: '',
