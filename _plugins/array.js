@@ -1,6 +1,4 @@
 import {Cookies, LocalStorage} from 'quasar'
-import Config from '../../../../src/config/index'
-import http from "axios/index";
 
 class Array {
 

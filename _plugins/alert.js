@@ -1,5 +1,4 @@
 import { Notify } from 'quasar'
-import Config from "../../../../src/config/index";
 
 /*
 * @msg = type : string / message to show / default : 'Notify'

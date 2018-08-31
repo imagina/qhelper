@@ -1,5 +1,4 @@
 import {Cookies, LocalStorage} from 'quasar'
-import Config from '../../../../src/config/index'
 import {helper} from '@imagina/qhelper/_plugins/helper';
 
 class Remember {
