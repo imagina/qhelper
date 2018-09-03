@@ -1,5 +1,4 @@
 import {Cookies, LocalStorage, Loading, QSpinnerHourglass} from 'quasar'
-import Config from 'src/config/index'
 import {Forage} from '@imagina/qhelper/_plugins/localForage' //LocalForage
 import {Notify} from 'quasar'
 

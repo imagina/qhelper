@@ -37,6 +37,11 @@
     "asgardcms",
     "passport"
   ],
+  "dependencies": {
+    "vuelidate": "^0.7.4",
+    "axios": "^0.18.0",
+    "localforage": "^1.7.2"
+  },
   "license": "ISC",
   "main": "index.js",
   "name": "@imagina/qhelper",
@@ -47,5 +52,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
