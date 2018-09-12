@@ -78,7 +78,7 @@ class localForage {
 
   //Insert or update
   set(index, data) {
-    if (index && data) {
+    if (index) {
       return new Promise((resolve, reject) => {
         LocalForage.setItem(index, data).then(value => {
           resolve(value)

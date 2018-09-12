@@ -1,33 +1,41 @@
 {
-  "_from": "@imagina/qhelper",
+  "_from": "@imagina/qhelper@>=0.0.4",
+  "_id": "@imagina/qhelper@0.0.5",
   "_inBundle": false,
-  "_integrity": "sha512-UHIpWNNCDS3DR7TGHSx8O44YoGut+75ADjfbKXUpiSinqxhR51rqp8KsEbq9rcwGoJE/gxqe/z7k4gYmut984Q==",
+  "_integrity": "sha512-8cez/9L2b61q0aLK12hTTeQ5eyj5Xqz9tFFEmoMr/CkI8tDxwns8F/S7/zgQoHyhruz1NgcavzdKQMt6tg74kw==",
   "_location": "/@imagina/qhelper",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "@imagina/qhelper",
+    "raw": "@imagina/qhelper@>=0.0.4",
     "name": "@imagina/qhelper",
     "escapedName": "@imagina%2fqhelper",
     "scope": "@imagina",
-    "rawSpec": "",
+    "rawSpec": ">=0.0.4",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": ">=0.0.4"
   },
   "_requiredBy": [
-    "#USER",
-    "/"
+    "/@imagina/qcrud",
+    "/@imagina/quser"
   ],
-  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.1.tgz",
-  "_shasum": "63c1be5dd96769f3c82265343e1462ca84bfa700",
-  "_spec": "@imagina/qhelper",
-  "_where": "D:\\Imagina\\html\\fhaproducts2018_frontend",
-  "author": "http://imaginacolombia.com/",
+  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.5.tgz",
+  "_shasum": "e6d00a72ae45ebca52be2923cc2986e75a721c88",
+  "_spec": "@imagina/qhelper@>=0.0.4",
+  "_where": "D:\\Imagina\\html\\copifam_app\\node_modules\\@imagina\\qcrud",
+  "author": {
+    "name": "http://imaginacolombia.com/"
+  },
   "bugs": {
     "url": "https://github.com/imagina/qhelper/issues"
   },
   "bundleDependencies": false,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "localforage": "^1.7.2",
+    "vuelidate": "^0.7.4"
+  },
   "deprecated": false,
   "description": "Quasar Framework, AsgardCMS, Laravel Passport Authentication, Module with CRUD for users, and Profile Admin",
   "homepage": "https://github.com/imagina/qhelper#readme",
@@ -37,11 +45,6 @@
     "asgardcms",
     "passport"
   ],
-  "dependencies": {
-    "vuelidate": "^0.7.4",
-    "axios": "^0.18.0",
-    "localforage": "^1.7.2"
-  },
   "license": "ISC",
   "main": "index.js",
   "name": "@imagina/qhelper",
@@ -52,5 +55,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
