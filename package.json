@@ -1,5 +1,5 @@
 {
-  "_from": "@imagina/qhelper@>=0.0.8",
+  "_from": "@imagina/qhelper@>=0.0.9",
   "_id": "@imagina/qhelper@0.0.8",
   "_inBundle": false,
   "_integrity": "sha512-8cez/9L2b61q0aLK12hTTeQ5eyj5Xqz9tFFEmoMr/CkI8tDxwns8F/S7/zgQoHyhruz1NgcavzdKQMt6tg74kw==",
@@ -8,21 +8,21 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@imagina/qhelper@>=0.0.8",
+    "raw": "@imagina/qhelper@>=0.0.9",
     "name": "@imagina/qhelper",
     "escapedName": "@imagina%2fqhelper",
     "scope": "@imagina",
-    "rawSpec": ">=0.0.8",
+    "rawSpec": ">=0.0.9",
     "saveSpec": null,
-    "fetchSpec": ">=0.0.8"
+    "fetchSpec": ">=0.0.9"
   },
   "_requiredBy": [
     "/@imagina/qcrud",
     "/@imagina/quser"
   ],
-  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.8.tgz",
+  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.9.tgz",
   "_shasum": "e6d00a72ae45ebca52be2923cc2986e75a721c88",
-  "_spec": "@imagina/qhelper@>=0.0.8",
+  "_spec": "@imagina/qhelper@>=0.0.9",
   "_where": "D:\\Imagina\\html\\copifam_app\\node_modules\\@imagina\\qcrud",
   "author": {
     "name": "http://imaginacolombia.com/"
@@ -34,7 +34,9 @@
   "dependencies": {
     "axios": "^0.18.0",
     "localforage": "^1.7.2",
-    "vuelidate": "^0.7.4"
+    "vuelidate": "^0.7.4",
+    "laravel-echo": "^1.4.0",
+    "pusher-js": "^4.3.1"
   },
   "deprecated": false,
   "description": "Quasar Framework, AsgardCMS, Laravel Passport Authentication, Module with CRUD for users, and Profile Admin",
@@ -55,5 +57,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.8"
+  "version": "0.0.9"
 }
