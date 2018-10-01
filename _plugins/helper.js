@@ -115,8 +115,8 @@ class Helper {
    * @param data type {string} required
    *
    */
-  clearCache(data) {
-    this.storage.keys().then(keys =>{
+  async clearCache(data) {
+    await this.storage.keys().then(keys =>{
       keys.forEach(el => {
         if (el.indexOf(data) > -1)
           this.storage.remove(el);

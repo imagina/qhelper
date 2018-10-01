@@ -1,6 +1,6 @@
 {
-  "_from": "@imagina/qhelper@>=0.0.9",
-  "_id": "@imagina/qhelper@0.0.8",
+  "_from": "@imagina/qhelper@>=0.0.10",
+  "_id": "@imagina/qhelper@0.0.10",
   "_inBundle": false,
   "_integrity": "sha512-8cez/9L2b61q0aLK12hTTeQ5eyj5Xqz9tFFEmoMr/CkI8tDxwns8F/S7/zgQoHyhruz1NgcavzdKQMt6tg74kw==",
   "_location": "/@imagina/qhelper",
@@ -8,21 +8,21 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@imagina/qhelper@>=0.0.9",
+    "raw": "@imagina/qhelper@>=0.0.10",
     "name": "@imagina/qhelper",
     "escapedName": "@imagina%2fqhelper",
     "scope": "@imagina",
-    "rawSpec": ">=0.0.9",
+    "rawSpec": ">=0.0.10",
     "saveSpec": null,
-    "fetchSpec": ">=0.0.9"
+    "fetchSpec": ">=0.0.10"
   },
   "_requiredBy": [
     "/@imagina/qcrud",
     "/@imagina/quser"
   ],
-  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.9.tgz",
+  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.10.tgz",
   "_shasum": "e6d00a72ae45ebca52be2923cc2986e75a721c88",
-  "_spec": "@imagina/qhelper@>=0.0.9",
+  "_spec": "@imagina/qhelper@>=0.0.10",
   "_where": "D:\\Imagina\\html\\copifam_app\\node_modules\\@imagina\\qcrud",
   "author": {
     "name": "http://imaginacolombia.com/"
@@ -57,5 +57,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.9"
+  "version": "0.0.10"
 }
