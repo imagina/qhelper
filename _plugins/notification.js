@@ -15,7 +15,7 @@ class Notification {
   global(){
     this.Echo.channel('global')
     .listen('.clearCache', (message) => {
-      helper.clearCache(message["data"]);
+      helper.clearCache(message["key"]);
     });
   }
 }
