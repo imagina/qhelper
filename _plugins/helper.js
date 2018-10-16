@@ -67,32 +67,35 @@ class Helper {
    */
   rangeDate(type) {
     type ? true : type = 'today'
-
-    let d = new Date(); //Create object date
-    let year = d.getFullYear() //Date current year
-    let month = d.getMonth() + 1  //Date current month
-
+  
+    let from = new Date(); //Create object date
+    let to = new Date(); //Create object date
     switch (type) {
       case 'today':
-        return {
-          from: year + '/' + month + '/' + d.getDate(),
-          to: year + '/' + month + '/' + d.getDate(),
-        }
+        break;
+      case 'yesterday':
+        from.setSeconds(-86400);
+        to.setSeconds(-86400);
+        break;
+      case 'tomorrow':
+        from.setSeconds(86400);
+        to.setSeconds(86400);
         break;
       case 'currentMonth':
-        return {
-          from: year + '/' + month + '/' + new Date(year, month, 1).getDate(),
-          to: year + '/' + month + '/' + new Date(year, month + 1, 0).getDate()
-        }
+        from.setDate(1);
+        to = new Date(to.getFullYear(), from.getMonth() + 1, 0);
         break;
       case 'lastMonth':
-        return {
-          from: year + '/' + (month - 1) + '/' + new Date(year, month - 1, 1).getDate(),
-          to: year + '/' + (month - 1) + '/' + new Date(year, month - 1, 0).getDate()
-        }
+        from = new Date(from.getFullYear(), from.getMonth() - 1, 1);
+        to = new Date(to.getFullYear(), to.getMonth(), 0);
         break;
 
     }
+    
+    return {
+      from: from.getFullYear() + '/' + (from.getMonth()+1) + '/' + from.getDate(),
+      to: to.getFullYear() + '/' + (to.getMonth()+1) + '/' +  to.getDate(),
+    };
   }
 
   /*set names months in dom*/
