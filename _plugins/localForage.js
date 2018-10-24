@@ -20,7 +20,7 @@ class localForage {
       version: 1,
       storeName: 'storage',
     });
-
+    
     //Contructor of method get
     this.get = {
       //Return data by index name
