@@ -21,12 +21,12 @@ class Remember {
   }
   
   /*Return data in cache*/
-  async(key, seconds, callback) {
+  async(key, seconds, callback, refresh) {
     return new Promise((resolve, reject) => {
       helper.storage.get.item(key).then(response => {
         let data = response;
         let difference = data ? helper.timestamp() - data.updated_at : seconds;
-        if (difference >= seconds || !data) {
+        if (difference >= seconds || !data || refresh) {
           if (navigator.onLine) {
             callback().then(response => {
               try {
@@ -70,6 +70,10 @@ class Remember {
       }
     })
     
+  }
+  
+  flush(key){
+    helper.storage.remove(key)
   }
   
 }

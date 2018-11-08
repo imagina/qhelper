@@ -1,6 +1,7 @@
 import {Cookies, LocalStorage, Loading, QSpinnerHourglass} from 'quasar'
 import {Forage} from '@imagina/qhelper/_plugins/localForage' //LocalForage
 import {Notify} from 'quasar'
+import Config from 'src/config/index';
 
 class Helper {
   
@@ -127,6 +128,10 @@ class Helper {
     });
   }
   
+  
+  goToLead(id) {
+    window.open(Config('api.fha_show_lead') + id, '_blank')
+  }
 }
 
 const helper = new Helper();
