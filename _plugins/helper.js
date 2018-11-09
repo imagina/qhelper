@@ -128,10 +128,38 @@ class Helper {
     });
   }
   
-  
+  /**
+   * redirect to Lead view, Old system
+   * @param id
+   */
   goToLead(id) {
     window.open(Config('api.fha_show_lead') + id, '_blank')
   }
+  
+  
+  /**
+   * load latitude and logitude
+   */
+  async loadPosition() {
+    try {
+      const position = await this.getCurrentPosition();
+      return position.coords;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  
+  /**
+   * get position of navigator
+   */
+  getCurrentPosition(options = {}) {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+  },
+  
+  
 }
 
 const helper = new Helper();
