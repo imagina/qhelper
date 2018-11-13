@@ -136,7 +136,6 @@ class Helper {
     window.open(Config('api.fha_show_lead') + id, '_blank')
   }
   
-  
   /**
    * load latitude and logitude
    */
@@ -144,20 +143,19 @@ class Helper {
     try {
       const position = await this.getCurrentPosition();
       return position.coords;
-      
     } catch (error) {
-      console.log(error);
     }
-  },
+  }
   
   /**
    * get position of navigator
    */
   getCurrentPosition(options = {}) {
     return new Promise((resolve, reject) => {
+      navigator.permissions.query({'name': 'geolocation'})
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
     });
-  },
+  }
   
   
 }
