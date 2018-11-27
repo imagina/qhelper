@@ -57,18 +57,20 @@ class localForage {
       all: () => {
         return new Promise((resolve, reject) => {
           //Get all keys in storage
-          LocalForage.keys().then(response => {
-            if(response.length){
-              let allStorage = {}
+
+          LocalForage.keys().then(function(keys) {
+            if(keys.length){
+              let allStorage = {};
               //Get data by key
-              response.forEach((index) => {
-                LocalForage.getItem(index).then(value => {
-                  allStorage[index] = value //Add data from storage
+              keys.forEach((key,index) => {
+                LocalForage.getItem(key).then(value => {
+                  allStorage[key] = value //Add data from storage
+                  if(keys.length == index)
+                    resolve(allStorage);
                 })
               })
-              resolve(allStorage)// Return all data in storage
             }else{
-              resolve(response) //Return [] Empty
+              resolve(allStorage);
             }
           })
         })
@@ -82,6 +84,9 @@ class localForage {
       return new Promise((resolve, reject) => {
         LocalForage.setItem(index, data).then(value => {
           resolve(value)
+        }).catch((error) => {
+          console.error('Error Localforage Method Set: ',error)
+          reject(error)
         })
       })
     }
@@ -96,6 +101,17 @@ class localForage {
         })
       })
     }
+  }
+
+  //Return all keys fron storage
+  keys() {
+
+      return new Promise((resolve, reject) => {
+        LocalForage.keys().then(value => {
+          resolve(value)
+        })
+      })
+
   }
 
   //Remove all items from storage

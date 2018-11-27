@@ -45,7 +45,8 @@ class Array {
   select(dataArray) {
     let response = []
     dataArray.forEach((item) => {
-      let labelTitle = item.title ? item.title : (item['full_name'] ? item['full_name'] : 'default')
+      let labelTitle = item.title ? item.title :
+        (item.name ? item.name : (item['full_name'] ? item['full_name'] : 'default'))
 
       response.push({
         label: labelTitle,
