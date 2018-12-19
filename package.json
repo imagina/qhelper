@@ -1,33 +1,38 @@
 {
-  "_from": "@imagina/qhelper@0.0.19",
-  "_id": "@imagina/qhelper@0.0.19",
+  "_args": [
+    [
+      "@imagina/qhelper@0.0.20",
+      "D:\\projects\\Applications\\imagina_app"
+    ]
+  ],
+  "_from": "@imagina/qhelper@0.0.20",
+  "_id": "@imagina/qhelper@0.0.20",
   "_inBundle": false,
-  "_integrity": "sha512-wm2DYqoS+k00ic1T9wpP//owL0nPgaNCslX+0vU0MZJgsJAvl/CYb3kuItO/+bT4wrOAzvwOuR+3m2s3gVjhyQ==",
+  "_integrity": "sha512-2EPXHoPD5EbgLq5eI+ZgBxXGfZaduadwqFlwJq8uyrtGrt8Cp8TkbHYOxgkpv4Pw3iDDnNCLk8114lChwxZr/g==",
   "_location": "/@imagina/qhelper",
   "_phantomChildren": {},
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "@imagina/qhelper@0.0.19",
+    "raw": "@imagina/qhelper@0.0.20",
     "name": "@imagina/qhelper",
     "escapedName": "@imagina%2fqhelper",
     "scope": "@imagina",
-    "rawSpec": "0.0.18",
+    "rawSpec": "0.0.20",
     "saveSpec": null,
-    "fetchSpec": "0.0.18"
+    "fetchSpec": "0.0.20"
   },
   "_requiredBy": [
-    "#USER",
     "/",
     "/@imagina/qcrud",
     "/@imagina/qnotification",
     "/@imagina/qoffline",
     "/@imagina/quser"
   ],
-  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.19.tgz",
+  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.20.tgz",
   "_shasum": "b86ff24848d4b6ecb47b485f8632dcd8c1c3f662",
-  "_spec": "@imagina/qhelper@0.0.19",
-  "_where": "D:\\Imagina\\html\\Applications\\fhia_app",
+  "_spec": "0.0.20",
+  "_where": "D:\\projects\\Applications\\imagina_app",
   "author": {
     "name": "http://imaginacolombia.com/"
   },
@@ -59,5 +64,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.19"
+  "version": "0.0.20"
 }

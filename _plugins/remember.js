@@ -1,5 +1,6 @@
 import {Cookies, LocalStorage} from 'quasar'
 import {helper} from '@imagina/qhelper/_plugins/helper';
+import {date} from '@imagina/qhelper/_plugins/date';
 
 class Remember {
   
@@ -25,7 +26,8 @@ class Remember {
     return new Promise((resolve, reject) => {
       helper.storage.get.item(key).then(response => {
         let data = response;
-        let difference = data ? helper.timestamp() - data.updated_at : seconds;
+        let difference = data ? date.timestamp() - data.updated_at : seconds;
+
         if (difference >= seconds || !data || refresh) {
           if (navigator.onLine) {
             callback().then(response => {
@@ -33,10 +35,10 @@ class Remember {
                 helper.storage.set(key, {
                   data: response.data.data,
                   meta: response.data.meta ? response.data.meta : '',
-                  updated_at: helper.timestamp()
+                  updated_at: date.timestamp()
                 })
               } catch (error) {
-                console.log(error)
+                console.log('Error Remember: '+error)
               }
               resolve(response.data);
             })
@@ -63,7 +65,7 @@ class Remember {
         helper.storage.set(key, {
           data: data,
           meta: response.data.meta ? response.data.meta : '',
-          updated_at: helper.timestamp()
+          updated_at: date.timestamp()
         })
       } catch (error) {
         console.log(error)

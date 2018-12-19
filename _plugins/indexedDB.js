@@ -1,4 +1,5 @@
 import {helper} from '@imagina/qhelper/_plugins/helper'
+import {date} from '@imagina/qhelper/_plugins/date'
 import LocalForage from "localforage";
 
 class Storage {
@@ -85,7 +86,7 @@ class Storage {
     if (index && data) {
       this.open().then(storage => {
         //Get timestamp for register updatedat
-        let timestamp = helper.timestamp()
+        let timestamp = date.timeStamp()
 
         //Add or Update item in storage
         storage.put({
