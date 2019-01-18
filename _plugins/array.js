@@ -15,10 +15,11 @@ class Array {
 
       //filter and order only by childrens from parentId
       dataArray.filter((item) => {
+        item.parentId ? true : item.parentId = 0
         if (item.parentId == parentId) {
           let source = {
             id: item.id,
-            label: item.title,
+            label: item.title ? item.title : (item.name ? item.name : '-'),
           }
 
           let childrens = tree(item.id) //get childrens from this source
@@ -43,7 +44,6 @@ class Array {
    *
    */
   select(dataArray) {
-
     let response = []
     dataArray.forEach((item) => {
       let labelTitle = item.title ? item.title :
@@ -113,7 +113,7 @@ class Array {
     /*recursive function*/
     let childrens = (parentId) => {
       let response = []
-
+      
       //add to "response" the ID children of parentId
       dataArray.filter((item) => {
         if (item.parentId == parentId) {
