@@ -16,11 +16,11 @@ class localForage {
     //Config for LocalForage
     LocalForage.config({
       driver: configDrivers(),
-      name: 'fhiaDB',
+      name: env('LOCALFORAGE_NAME','ProjectDB'),
       version: 1,
       storeName: 'storage',
     });
-    
+
     //Contructor of method get
     this.get = {
       //Return data by index name
@@ -57,7 +57,7 @@ class localForage {
       all: () => {
         return new Promise((resolve, reject) => {
           //Get all keys in storage
-          
+
           LocalForage.keys().then(function(keys) {
             if(keys.length){
               let allStorage = {};
@@ -84,11 +84,14 @@ class localForage {
       return new Promise((resolve, reject) => {
         LocalForage.setItem(index, data).then(value => {
           resolve(value)
+        }).catch(error => {
+          console.error('Error: Localforage method SET. ',error)
+          reject(error)
         })
       })
     }
   }
-  
+
   //Remove an item from storage
   remove(index) {
     if(index){
@@ -99,7 +102,7 @@ class localForage {
       })
     }
   }
-  
+
   //Return all keys fron storage
   keys() {
 
@@ -108,7 +111,7 @@ class localForage {
           resolve(value)
         })
       })
-    
+
   }
 
   //Remove all items from storage

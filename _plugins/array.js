@@ -9,13 +9,13 @@ class Array {
   /*order array in tree*/
   tree(dataArray) {
     /*recursive funtion*/
-    let tree = (parent_id) => {
-      parent_id = parent_id ? parent_id : 0 //first parent
+    let tree = (parentId) => {
+      parentId = parentId ? parentId : 0 //first parent
       let response = []
 
-      //filter and order only by childrens from parent_id
+      //filter and order only by childrens from parentId
       dataArray.filter((item) => {
-        if (item.parent_id == parent_id) {
+        if (item.parentId == parentId) {
           let source = {
             id: item.id,
             label: item.title,
@@ -43,10 +43,11 @@ class Array {
    *
    */
   select(dataArray) {
+
     let response = []
     dataArray.forEach((item) => {
       let labelTitle = item.title ? item.title :
-        (item.name ? item.name : (item['full_name'] ? item['full_name'] : 'default'))
+        (item.name ? item.name : (item['fullName'] ? item['fullName'] : 'default'))
 
       response.push({
         label: labelTitle,
@@ -63,7 +64,7 @@ class Array {
    * @dataArray{object} = [{
     *   id: type int or string, -> require
     *   title: type string      -> require
-    *   parent_id: type string  -> require
+    *   parentId: type string  -> require
     * }]
    * @id{int} = 1
    *
@@ -85,7 +86,7 @@ class Array {
         if (parent) {
           response.name.unshift(parent.title)
           response.id.unshift(parent.id)
-          id = parseInt(parent.parent_id)
+          id = parseInt(parent.parentId)
         }
       }
     }
@@ -101,7 +102,7 @@ class Array {
    *
    * @dataArray{object} = [{
     *   id: type int or string, -> require
-    *   parent_id: type string  -> require
+    *   parentId: type string  -> require
     * }]
    * @id{int} = 1
    *
@@ -110,12 +111,12 @@ class Array {
    */
   children(dataArray, id, excludeParent, type) {
     /*recursive function*/
-    let childrens = (parent_id) => {
+    let childrens = (parentId) => {
       let response = []
 
-      //add to "response" the ID children of parent_id
+      //add to "response" the ID children of parentId
       dataArray.filter((item) => {
-        if (item.parent_id == parent_id) {
+        if (item.parentId == parentId) {
           if (!type)
             response.push(item.id)
           else
