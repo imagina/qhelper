@@ -17,7 +17,7 @@ export default {
 			if (!data) return reject('Data is required')
 			let urlApi = config(configName)//Get url from config
 			let dataRequest = helper.toSnakeCase(data)
-			
+			console.warn("transformed",dataRequest)
 			//Request
 			http.post(urlApi, {attributes:dataRequest}).then(response => {
 				resolve(response.data)//Successful response

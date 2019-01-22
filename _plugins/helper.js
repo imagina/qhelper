@@ -173,14 +173,24 @@ class Helper {
 		if(mergeFields.length){
 			mergeFields.forEach(mergeField => {
 				//Search merge field name in fields
-				let field = fields.find(field => field.name == mergeField.name)
-				if(field)//Merge Value
-					field.value = mergeField.value
-				else//Add mergeField to fields
-					fields.push(mergeField)
+				
+				var existField = false;
+				fields.forEach((field,index) => {
+					if(field.name == mergeField.name){
+            existField = true;
+            if(mergeField.value){
+              fields[index] = mergeField
+            }else{
+              fields[index].id = mergeField.id
+						}
+					}
+				})
+				
+				if(!existField){
+          fields.push(mergeField)
+				}
 			})
 		}
-
 		//Conver fields
 		fields.forEach(field => {
 			response[field.name] = field
@@ -204,31 +214,35 @@ class Helper {
 	 * Convert object keys to snake_case
 	 * @param object
 	 */
-	toSnakeCase(object) {
-		//Function to convert string from camelCase to snake_case
-		let convert = (string) => {
-			return string.replace(/[\w]([A-Z0-9])/g, function (m) {
-				return m[0] + "_" + m[1];
-			}).toLowerCase();
-		}
-		//function recursive to loop all items from object
-		let convertObject = (dataObject) => {
-			let response = {}//Object to save fields vonverted
-			//Loop all items for convert
-			for (var item in dataObject) {
-				let itemValue = dataObject[item]//Value from item
-				//If value is object, also convert value
-				if ((typeof itemValue === 'object') && (itemValue != null) && !(itemValue instanceof Array))
-					itemValue = convertObject(dataObject[item])
-				//Add to response new Key with Value if isn't null
-				if((itemValue !== null) && (itemValue !== undefined))
-					response[convert(item)] = itemValue
-			}
-
-			return Object.keys(response).length ? response : null
-		}
-		return convertObject(object)//Return response
-	}
+  toSnakeCase(object) {
+    //Function to convert string from camelCase to snake_case
+    let convert = (string) => {
+      return string.replace(/[\w]([A-Z0-9])/g, function (m) {
+        return m[0] + "_" + m[1];
+      }).toLowerCase();
+    }
+    //function recursive to loop all items from object
+    let convertObject = (dataObject) => {
+      let response = {}//Object to save fields vonverted
+      //Loop all items for convert
+      
+      for (var item in dataObject) {
+        let itemValue = dataObject[item]//Value from item
+        if(item !== 'options' && item !== 'fields'){
+          //If value is object, also convert value
+          if ((typeof itemValue === 'object') && (itemValue != null)/* && !(itemValue instanceof Array)*/)
+            itemValue = convertObject(dataObject[item])
+          //Add to response new Key with Value if isn't null
+          if((itemValue !== null) && (itemValue !== undefined))
+            response[convert(item)] = itemValue
+        }else
+          response[item] = itemValue
+      }
+      
+      return Object.keys(response).length ? response : null
+    }
+    return convertObject(object)//Return response
+  }
 }
 
 const helper = new Helper();
