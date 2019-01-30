@@ -1,4 +1,5 @@
 import LocalForage from "localforage";
+import {helper} from "@imagina/qhelper/_plugins/helper";
 
 class localForage {
 
@@ -121,6 +122,27 @@ class localForage {
         resolve(true)
       })
     })
+  }
+
+  //Restore cache, save any data
+  async restore(){
+    let data = {//Get data to save
+      userToken: await this.get.item("userToken"),
+      userId: await this.get.item("userId"),
+      userData: await this.get.item("userData"),
+      offRequests : await this.get.item("offlineRequests"),
+      notifications : await this.get.item("notifications") || []
+    }
+
+    //Clear cache
+    await this.clear()
+
+    //Restore cache
+    this.set('userToken', data.userToken)
+    this.set('userId', data.userId)
+    this.set('userData', data.userData)
+    this.set('offlineRequests', data.offRequests)
+    this.set('notifications', data.notifications)
   }
 }
 
