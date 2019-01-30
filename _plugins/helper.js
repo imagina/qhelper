@@ -4,6 +4,7 @@ import {Notify} from 'quasar'
 import Config from 'src/config/index';
 import {array} from "@imagina/qhelper/_plugins/array"
 import {alert} from "@imagina/qhelper/_plugins/alert";
+import store from 'src/store/index'
 
 class Helper {
 
@@ -12,16 +13,25 @@ class Helper {
 		this.array = array
 		this.alert = alert
 	}
-
+	
+	//reload app
+	reloadApp(){
+		this.loadingShow()
+		store.commit('app/TOGGLE_APP',false)
+		setTimeout(() => {
+			this.loadingHidden()
+			store.commit('app/TOGGLE_APP',true)
+		},1500)
+	}
+	
 	loadingShow() {
 		Loading.show({
 			spinner: QSpinnerHourglass,
-			spinnerColor: 'white',
-			//customClass : 'bg-loading'
-			//message: 'Some message',
-			//messageColor: 'blue',
+			spinnerColor: 'primary',
+			customClass : 'bg-loading no-shadow',
+			message: 'Loading...',
+			messageColor: 'primary',
 			//spinnerSize: 250, // in pixels
-			//customClass : 'bg-primary'
 		})
 	}
 
