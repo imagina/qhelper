@@ -131,7 +131,9 @@ class localForage {
       userId: await this.get.item("userId"),
       userData: await this.get.item("userData"),
       offRequests : await this.get.item("offlineRequests"),
-      notifications : await this.get.item("notifications") || []
+      notifications : await this.get.item("notifications") || [],
+      departmentId : await this.get.item("auth.department.id"),
+      roleId : await this.get.item("auth.role.id"),
     }
 
     //Clear cache
@@ -143,6 +145,8 @@ class localForage {
     this.set('userData', data.userData)
     this.set('offlineRequests', data.offRequests)
     this.set('notifications', data.notifications)
+    this.set('auth.department.id', data.departmentId)
+    this.set('auth.role.id', data.roleId)
   }
 }
 
