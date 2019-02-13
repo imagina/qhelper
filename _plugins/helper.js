@@ -238,7 +238,7 @@ class Helper {
       
       for (var item in dataObject) {
         let itemValue = dataObject[item]//Value from item
-        if(item !== 'options' && item !== 'fields' && item !== 'settings'){
+        if(item !== 'options' && item !== 'fields' && item !== 'settings' && item !== 'permissions'){
           //If value is object, also convert value
           if ((typeof itemValue === 'object') && (itemValue != null)/* && !(itemValue instanceof Array)*/)
             itemValue = convertObject(dataObject[item])
