@@ -219,18 +219,22 @@ class Helper {
 		}
 		return response
 	}
-
+  
+  /**
+   * Convert strings to snake_case
+   * @param object
+   */
+  convertStringToSnakeCase(string) {
+    return string.replace(/[\w]([A-Z0-9])/g, function (m) {
+      return m[0] + "_" + m[1];
+    }).toLowerCase();
+  }
+	
 	/**
 	 * Convert object keys to snake_case
 	 * @param object
 	 */
   toSnakeCase(object) {
-    //Function to convert string from camelCase to snake_case
-    let convert = (string) => {
-      return string.replace(/[\w]([A-Z0-9])/g, function (m) {
-        return m[0] + "_" + m[1];
-      }).toLowerCase();
-    }
     //function recursive to loop all items from object
     let convertObject = (dataObject) => {
       let response = {}//Object to save fields vonverted
@@ -244,7 +248,7 @@ class Helper {
             itemValue = convertObject(dataObject[item])
           //Add to response new Key with Value if isn't null
           if((itemValue !== null) && (itemValue !== undefined))
-            response[convert(item)] = itemValue
+            response[convertStringToSnakeCase(item)] = itemValue
         }else
           response[item] = itemValue
       }
