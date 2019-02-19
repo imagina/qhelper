@@ -14,16 +14,6 @@ class Helper {
 		this.alert = alert
 	}
 	
-	//reload app
-	reloadApp(){
-		this.loadingShow()
-		store.commit('app/TOGGLE_APP',false)
-		setTimeout(() => {
-			this.loadingHidden()
-			store.commit('app/TOGGLE_APP',true)
-		},1500)
-	}
-	
 	loadingShow() {
 		Loading.show({
 			spinner: QSpinnerHourglass,
@@ -248,7 +238,7 @@ class Helper {
             itemValue = convertObject(dataObject[item])
           //Add to response new Key with Value if isn't null
           if((itemValue !== null) && (itemValue !== undefined))
-            response[convertStringToSnakeCase(item)] = itemValue
+            response[this.convertStringToSnakeCase(item)] = itemValue
         }else
           response[item] = itemValue
       }

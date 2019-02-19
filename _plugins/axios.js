@@ -1,4 +1,4 @@
-import axios from 'Modules/qhelper/_plugins/axios'
+import axios from '../../../../src/plugins/axios'
 
 export default ({ Vue }) => {
   Vue.prototype.$axios = axios;
