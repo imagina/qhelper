@@ -125,28 +125,32 @@ class localForage {
   }
 
   //Restore cache, save any data
-  async restore(){
-    let data = {//Get data to save
-      userToken: await this.get.item("userToken"),
-      userId: await this.get.item("userId"),
-      userData: await this.get.item("userData"),
-      offRequests : await this.get.item("offlineRequests"),
-      notifications : await this.get.item("notifications") || [],
-      departmentId : await this.get.item("auth.department.id"),
-      roleId : await this.get.item("auth.role.id"),
-    }
+  restore(){
+    return new Promise(async (resolve,reject) => {
+      let data = {//Get data to save
+        userToken: await this.get.item("userToken"),
+        userId: await this.get.item("userId"),
+        userData: await this.get.item("userData"),
+        offRequests : await this.get.item("offlineRequests"),
+        notifications : await this.get.item("notifications") || [],
+        departmentId : await this.get.item("auth.department.id"),
+        roleId : await this.get.item("auth.role.id"),
+      }
 
-    //Clear cache
-    await this.clear()
+      //Clear cache
+      await this.clear()
 
-    //Restore cache
-    this.set('userToken', data.userToken)
-    this.set('userId', data.userId)
-    this.set('userData', data.userData)
-    this.set('offlineRequests', data.offRequests)
-    this.set('notifications', data.notifications)
-    this.set('auth.department.id', data.departmentId)
-    this.set('auth.role.id', data.roleId)
+      //Restore cache
+      this.set('userToken', data.userToken)
+      this.set('userId', data.userId)
+      this.set('userData', data.userData)
+      this.set('offlineRequests', data.offRequests)
+      this.set('notifications', data.notifications)
+      this.set('auth.department.id', data.departmentId)
+      this.set('auth.role.id', data.roleId)
+
+      resolve(true)
+    })
   }
 }
 
