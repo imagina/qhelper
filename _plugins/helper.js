@@ -225,6 +225,7 @@ class Helper {
 	 * @param object
 	 */
   toSnakeCase(object) {
+
     //function recursive to loop all items from object
     let convertObject = (dataObject) => {
       let response = {}//Object to save fields vonverted
@@ -234,15 +235,14 @@ class Helper {
         let itemValue = dataObject[item]//Value from item
         if(item !== 'options' && item !== 'fields' && item !== 'settings' && item !== 'permissions'){
           //If value is object, also convert value
-          if ((typeof itemValue === 'object') && (itemValue != null)/* && !(itemValue instanceof Array)*/)
+          if ((typeof itemValue === 'object') /*&& (itemValue != null)*//* && !(itemValue instanceof Array)*/)
             itemValue = convertObject(dataObject[item])
           //Add to response new Key with Value if isn't null
-          if((itemValue !== null) && (itemValue !== undefined))
-            response[this.convertStringToSnakeCase(item)] = itemValue
+          //if((itemValue !== null) && (itemValue !== undefined))
+					response[this.convertStringToSnakeCase(item)] = itemValue
         }else
           response[item] = itemValue
       }
-      
       return Object.keys(response).length ? response : null
     }
     return convertObject(object)//Return response
