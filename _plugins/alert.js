@@ -30,7 +30,7 @@ class Alert {
     error(msg=this.msg, pos=this.pos, action=this.action) {
       this.color = "negative"
       this.icon="error",
-      this.show(msg,pos,action);
+      this.show(msg,pos,action,0);
     }
 
     info(msg=this.msg, pos=this.pos, action=this.action) {
@@ -57,14 +57,14 @@ class Alert {
       this.show(msg,pos,action);
     }
 
-    show(msg,pos,action){
+    show(msg,pos,action,timeOut){
       msg ? this.msg = msg : false;
       pos ? this.pos = pos : false;
 
       Notify.create({
         message: this.msg,
         icon: this.icon,
-        timeout: action ? 0 : 2500,
+        timeout: timeOut == 0 ? timeOut : action ? 0 : 2500,
         color: this.color,
         position: this.pos,
         actions: action ? action : [
