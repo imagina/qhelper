@@ -21,40 +21,40 @@ class Alert {
     this.icon = 'notifications';
   }
 
-    success(msg=this.msg, pos=this.pos, action=this.action) {
+    success(msg=this.msg, pos=this.pos, action=this.action, timeOut = 2500) {
       this.color = "green";
       this.icon="notifications"
-      this.show(msg,pos,action);
+      this.show(msg,pos,action,timeOut);
     }
 
-    error(msg=this.msg, pos=this.pos, action=this.action) {
+    error(msg=this.msg, pos=this.pos, action=this.action, timeOut = 0) {
       this.color = "negative"
       this.icon="error",
-      this.show(msg,pos,action,0);
+      this.show(msg,pos,action,timeOut);
     }
 
-    info(msg=this.msg, pos=this.pos, action=this.action) {
+    info(msg=this.msg, pos=this.pos, action=this.action, timeOut = 2500) {
       this.color = "cyan";
       this.icon="info";
-      this.show(msg,pos,action);
+      this.show(msg,pos,action,timeOut);
     }
 
-    warning(msg=this.msg, pos=this.pos, action=this.action) {
+    warning(msg=this.msg, pos=this.pos, action=this.action, timeOut = 0) {
       this.color = "warning";
       this.icon="warning"
-      this.show(msg,pos,action);
+      this.show(msg,pos,action,timeOut);
     }
 
-    light(msg=this.msg, pos=this.pos, action=this.action) {
+    light(msg=this.msg, pos=this.pos, action=this.action, timeOut = 2500) {
       this.color = "faded";
       this.icon="notifications"
-      this.show(msg,pos,action);
+      this.show(msg,pos,action,timeOut);
     }
 
-    dark(msg=this.msg, pos=this.pos, action=this.action) {
+    dark(msg=this.msg, pos=this.pos, action=this.action, timeOut = 2500) {
       this.color = "black";
       this.icon="notifications";
-      this.show(msg,pos,action);
+      this.show(msg,pos,action,timeOut);
     }
 
     show(msg,pos,action,timeOut){
@@ -64,7 +64,7 @@ class Alert {
       Notify.create({
         message: this.msg,
         icon: this.icon,
-        timeout: timeOut == 0 ? timeOut : action ? 0 : 2500,
+        timeout: action ? 0 : timeOut,
         color: this.color,
         position: this.pos,
         actions: action ? action : [
