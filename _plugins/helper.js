@@ -243,7 +243,7 @@ class Helper {
         }else
           response[item] = itemValue
       }
-      return Object.keys(response).length ? response : null
+      return response
     }
     return convertObject(object)//Return response
   }
