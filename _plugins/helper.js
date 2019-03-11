@@ -250,7 +250,7 @@ class Helper {
   
   checkPassword(password){
   	// Must be at least 8 characters and contain a at least 1 lowercase character, at least 1 uppercase character and a number.
-    return password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
+    return password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
 	}
 }
 
