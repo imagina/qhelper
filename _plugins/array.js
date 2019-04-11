@@ -68,10 +68,10 @@ class Array {
     * }]
    *
    */
-  select(dataArray) {
+  select(dataArray, field = 'id') {
     let response = []
     dataArray.forEach((item) => {
-      let itemId = item.id ? item.id : 0
+      let itemId = item[field] ? item[field] : 0
       let labelTitle = item.title ? item.title :
         (item.name ? item.name : (item['fullName'] ? item['fullName'] : 'default'))
       

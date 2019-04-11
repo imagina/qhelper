@@ -252,10 +252,30 @@ class Helper {
     return convertObject(object)//Return response
   }
   
+  /**
+	 * check password complexity
+   * @param password
+   * @returns {*}
+   */
   checkPassword(password){
   	// Must be at least 8 characters and contain a at least 1 lowercase character, at least 1 uppercase character and a number.
     return password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
 	}
+  
+  /**
+	 * redirect to google maps with encode address
+   * @param address
+   */
+  map(address) {
+    if /* if we're on iOS, open in Apple Maps */
+    ((navigator.platform.indexOf("iPhone") != -1) ||
+      (navigator.platform.indexOf("iPod") != -1) ||
+      (navigator.platform.indexOf("iPad") != -1))
+      window.open("maps://maps.google.com/maps?q=" + encodeURI(address));
+    
+    else /* else use Google */
+      window.open("https://maps.google.com/maps?q=" + encodeURI(address));
+  }
 }
 
 const helper = new Helper();
