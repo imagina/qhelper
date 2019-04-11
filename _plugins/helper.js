@@ -138,7 +138,7 @@ class Helper {
 	 * @param id
 	 */
 	goToLead(id) {
-		window.open(Config('api.fha_show_lead') + id, '_blank')
+		window.open(Config('api.api.fha_show_lead') + id, '_blank')
 	}
 
 	/**
