@@ -57,7 +57,6 @@ class Array {
     return branch;
   }
 
-
   /**
    * Order array in object for select
    *
@@ -74,13 +73,13 @@ class Array {
       let itemId = item[field] ? item[field] : 0
       let labelTitle = item.title ? item.title :
         (item.name ? item.name : (item['fullName'] ? item['fullName'] : 'default'))
-      
+
       response.push({
         label: labelTitle,
         value: itemId
       });
     })
-    
+
     return response
   }
   

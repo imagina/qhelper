@@ -6,7 +6,7 @@ class localForage {
   constructor() {
     //Order config to localForage
     let configDrivers = () => {
-      let drivers = env('LOCALFORAGE_DRIVERS','INDEXEDDB,LOCALSTORAGE,WEBSQL').split(',')
+      let drivers = env('LOCALFORAGE_DRIVERS', 'INDEXEDDB,LOCALSTORAGE,WEBSQL').split(',')
       let data = []
       drivers.forEach((driver) => {
         data.push(LocalForage[driver])
@@ -17,7 +17,7 @@ class localForage {
     //Config for LocalForage
     LocalForage.config({
       driver: configDrivers(),
-      name: env('LOCALFORAGE_NAME','ProjectDB'),
+      name: env('LOCALFORAGE_NAME', 'ProjectDB'),
       version: 1,
       storeName: 'storage',
     });
@@ -32,7 +32,7 @@ class localForage {
               resolve(value)
             })
           })
-        }else{
+        } else {
           return 'Error: index requiered'
         }
       },
@@ -44,13 +44,13 @@ class localForage {
             let dataItems = {}
 
             //Get data from all items
-            for(var index in items){
+            for (var index in items) {
               dataItems[items[index]] = await LocalForage.getItem(items[index])
             }
 
             resolve(dataItems) //Return data
           })
-        }else{
+        } else {
           return 'Error: param type {array} require'
         }
       },
@@ -59,18 +59,18 @@ class localForage {
         return new Promise((resolve, reject) => {
           //Get all keys in storage
 
-          LocalForage.keys().then(function(keys) {
-            if(keys.length){
+          LocalForage.keys().then(function (keys) {
+            if (keys.length) {
               let allStorage = {};
               //Get data by key
-              keys.forEach((key,index) => {
+              keys.forEach((key, index) => {
                 LocalForage.getItem(key).then(value => {
                   allStorage[key] = value //Add data from storage
-                  if(keys.length == index)
+                  if (keys.length == index)
                     resolve(allStorage);
                 })
               })
-            }else{
+            } else {
               resolve(allStorage);
             }
           })
@@ -86,7 +86,7 @@ class localForage {
         LocalForage.setItem(index, data).then(value => {
           resolve(value)
         }).catch(error => {
-          console.error('Error: Localforage method SET. ',error)
+          console.error('Error: Localforage method SET. ', error)
           reject(error)
         })
       })
@@ -95,7 +95,7 @@ class localForage {
 
   //Remove an item from storage
   remove(index) {
-    if(index){
+    if (index) {
       return new Promise((resolve, reject) => {
         LocalForage.removeItem(index).then(value => {
           resolve(true)
@@ -107,11 +107,11 @@ class localForage {
   //Return all keys fron storage
   keys() {
 
-      return new Promise((resolve, reject) => {
-        LocalForage.keys().then(value => {
-          resolve(value)
-        })
+    return new Promise((resolve, reject) => {
+      LocalForage.keys().then(value => {
+        resolve(value)
       })
+    })
 
   }
 
@@ -125,31 +125,26 @@ class localForage {
   }
 
   //Restore cache, save any data
-  restore(){
-    return new Promise(async (resolve,reject) => {
-      let data = {//Get data to save
-        userToken: await this.get.item("userToken"),
-        userId: await this.get.item("userId"),
-        userData: await this.get.item("userData"),
-        offRequests : await this.get.item("offlineRequests"),
-        notifications : await this.get.item("notifications") || [],
-        departmentId : await this.get.item("auth.department.id"),
-        roleId : await this.get.item("auth.role.id"),
+  restore(keys = []) {
+    return new Promise((resolve, reject) => {
+      let keysData = {}
+
+      //Funtion with loop async, to get value keys
+      const getValuesKey = async () => {
+        for (var key of keys) {
+          keysData[key] = await this.get.item(key)
+        }
       }
 
-      //Clear cache
-      await this.clear()
+      //Call method to get keys
+      getValuesKey().then(async () => {
+        await this.clear()//Clear all cache
 
-      //Restore cache
-      this.set('userToken', data.userToken)
-      this.set('userId', data.userId)
-      this.set('userData', data.userData)
-      this.set('offlineRequests', data.offRequests)
-      this.set('notifications', data.notifications)
-      this.set('auth.department.id', data.departmentId)
-      this.set('auth.role.id', data.roleId)
+        //Restore cache
+        for (var keyName in keysData) { this.set(keyName, keysData[keyName]) }
 
-      resolve(true)
+        resolve(true)//Resolve promise
+      })
     })
   }
 }
