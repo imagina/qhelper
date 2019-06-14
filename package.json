@@ -1,34 +1,34 @@
 {
   "_args": [
     [
-      "@imagina/qhelper@0.0.26",
+      "@imagina/qhelper@0.0.27",
       "D:\\imagina\\projects\\baseQuasarFrontend\\front-end"
     ]
   ],
-  "_from": "@imagina/qhelper@^0.0.26",
-  "_id": "@imagina/qhelper@0.0.26",
+  "_from": "@imagina/qhelper@^0.0.27",
+  "_id": "@imagina/qhelper@0.0.27",
   "_inBundle": false,
-  "_integrity": "sha512-4ag3CAst5IJ/gp92Cx7/chl1MCyYxgOiX3u8mWchbA7I6LMVxTCOpcwSyUMbE1vjN4bcDD8EqAN7oWv79BXeBQ==",
+  "_integrity": "sha512-H5OMEAB9kfUFQ2tSRlVElvkiaE/+l4OUBsfhBjGGD/cv9UjQmPT5Y3onaRfKH/s3wELnDg8tJeZLqPGU5XrHSQ==",
   "_location": "/@imagina/qhelper",
   "_phantomChildren": {},
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "@imagina/qhelper@^0.0.26",
+    "raw": "@imagina/qhelper@^0.0.27",
     "name": "@imagina/qhelper",
     "escapedName": "@imagina%2fqhelper",
     "scope": "@imagina",
-    "rawSpec": "^0.0.26",
+    "rawSpec": "^0.0.27",
     "saveSpec": null,
-    "fetchSpec": "^0.0.26"
+    "fetchSpec": "^0.0.27"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.26.tgz",
-  "_shasum": "561e2827565c304943d7725e818751d9efb8b4d0",
-  "_spec": "@imagina/qhelper@^0.0.26",
-  "_where": "D:\\imagina\\projects\\baseQuasar\\back-end",
+  "_resolved": "https://registry.npmjs.org/@imagina/qhelper/-/qhelper-0.0.27.tgz",
+  "_shasum": "93a9d06324acf60f03d488544aeb1e87f76d49ab",
+  "_spec": "@imagina/qhelper@^0.0.27",
+  "_where": "D:\\imagina\\projects\\backedpizza\\front-end",
   "author": {
     "name": "http://imaginacolombia.com/"
   },
@@ -36,11 +36,6 @@
     "url": "https://github.com/imagina/qhelper/issues"
   },
   "bundleDependencies": false,
-  "dependencies": {
-    "axios": "^0.18.0",
-    "localforage": "^1.7.2",
-    "vuelidate": "^0.7.4"
-  },
   "deprecated": false,
   "description": "Quasar Framework, AsgardCMS, Laravel Passport Authentication, Module with CRUD for users, and Profile Admin",
   "homepage": "https://github.com/imagina/qhelper#readme",
@@ -60,5 +55,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.26"
+  "version": "0.0.27"
 }
