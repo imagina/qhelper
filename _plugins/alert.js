@@ -1,89 +1,85 @@
 import {Notify} from 'quasar'
 
-/*
-* @msg = type : string / message to show / default : 'Notify'
-* @pos = type : string / pos of notify('top', 'left', 'bottom-left'...etc)/ default : 'top-right'
-* @action = type : object / action for notify: {
-*   label: string / optional / default : 'Ok'
-*   icon: string / optional
-*   handler: callback() / optional / default : dimiss notify
-* }/ default : false
-*
-* */
-
 class Alert {
+  constructor() {
+    this.defaultParams = {
+      message: 'Notify',
+      pos: 'top-right',
+      action: false,
+      timeOut: 4000
+    }
+  }
 
-	constructor() {
-		this.msg = 'Notify';
-		this.color = 'green';
-		this.action = false;
-		this.pos = 'top-right';
-		this.icon = 'notifications';
-	}
+  //Alert success
+  success(params = {}) {
+    params = Object.assign({}, this.defaultParams, params)
+    params.icon = params.icon || "notifications"
+    params.color = "positive"
+    this.show(params)
+  }
 
-	success(msg = this.msg, pos = this.pos, action = this.action, timeOut = 2500) {
-		this.color = "green";
-		this.icon = "notifications"
-		this.show(msg, pos, action, timeOut);
-	}
+  //ALert Error
+  error(params = {}) {
+    params = Object.assign({}, this.defaultParams, params)
+    params.icon = params.icon || "error"
+    params.color = "negative"
+    this.show(params)
+  }
 
-	error(msg = this.msg, pos = this.pos, action = this.action, timeOut = 2500) {
-		this.color = "negative"
-		this.icon = "error",
-			this.show(msg, pos, action, timeOut);
-	}
+  //ALert info
+  info(params = {}) {
+    params = Object.assign({}, this.defaultParams, params)
+    params.icon = params.icon || "info"
+    params.color = "cyan"
+    this.show(params)
+  }
 
-	info(msg = this.msg, pos = this.pos, action = this.action, timeOut = 2500) {
-		this.color = "cyan";
-		this.icon = "info";
-		this.show(msg, pos, action, timeOut);
-	}
+  //ALert warning
+  warning(params = {}) {
+    params = Object.assign({}, this.defaultParams, params)
+    params.icon = params.icon || "warning"
+    params.color = "warning"
+    this.show(params)
+  }
 
-	warning(msg = this.msg, pos = this.pos, action = this.action, timeOut = 2500) {
-		this.color = "warning";
-		this.icon = "warning"
-		this.show(msg, pos, action, timeOut);
-	}
+  //ALert light
+  light(params = {}) {
+    params = Object.assign({}, this.defaultParams, params)
+    params.icon = params.icon || "notifications"
+    params.color = "faded"
+    this.show(params)
+  }
 
-	light(msg = this.msg, pos = this.pos, action = this.action, timeOut = 2500) {
-		this.color = "faded";
-		this.icon = "notifications"
-		this.show(msg, pos, action, timeOut);
-	}
+  //ALert dark
+  dark(params = {}) {
+    params = Object.assign({}, this.defaultParams, params)
+    params.icon = params.icon || "notifications"
+    params.color = "black"
+    this.show(params)
+  }
 
-	dark(msg = this.msg, pos = this.pos, action = this.action, timeOut = 2500) {
-		this.color = "black";
-		this.icon = "notifications";
-		this.show(msg, pos, action, timeOut);
-	}
-
-	show(msg, pos, action, timeOut) {
-		msg ? this.msg = msg.toString() : false;
-		pos ? this.pos = pos : false;
-
-		Notify.create({
-			message: this.msg,
-			icon: this.icon,
-			timeout: action ? 0 : timeOut,
-			color: this.color,
-			position: this.pos,
-			actions: action ? action : [
-				{
-					label: action.label ? action.label : 'Ok',
-					icon: action.icon ? action.icon : '',
-					handler: () => {
-						action.callback ? action.callback() : false
-					}
-				}
-			],
-		})
-	}
+  //Show alert
+  show(params) {
+    Notify.create({
+      message: params.message,
+      icon: params.icon,
+      timeout: params.action ? 0 : params.timeOut,
+      color: params.color,
+      //position: params.pos,
+      position: 'bottom-right',
+      actions: params.action || [
+        {
+          label: 'Ok',
+          icon: '',
+          handler: () => {
+            false
+          }
+        }
+      ],
+    })
+  }
 }
 
 const alert = new Alert();
 
-export default ({Vue}) => {
-	Vue.prototype.$alert = alert;
-}
-
-export {alert};
+export default alert
