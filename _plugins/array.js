@@ -16,7 +16,7 @@ class Array {
       if (!item.parentId) item.parentId = 0//Default parent ID
       let findId = false;
       elements.forEach(j => {
-        if (j.id == item.parentId) findId = j
+        if (parseInt(j.id) == parseInt(item.parentId)) findId = j
       })
       if (!findId) trees[item.parentId] = item.parentId
     })
@@ -35,8 +35,12 @@ class Array {
     //Build tree items
     trees.forEach((tree, index) => {
       this.builTree(elements, tree).forEach(element => {
-        let itemOrder = {id: element[fields.id], label: element[fields.label]}
-        if(element.children) itemOrder.children = orderItems(element.children)
+        let itemOrder = {
+          label: element[fields.label],
+          id: element[fields.id],
+          value: element[fields.id]
+        }
+        if (element.children) itemOrder.children = orderItems(element.children)
         response.push(itemOrder)
       })
     })
@@ -70,16 +74,13 @@ class Array {
    * }]
    *
    */
-  select(dataArray, field = 'id') {
+  select(dataArray, fields = {label: 'title', id: 'id'}) {
     let response = []
     dataArray.forEach((item) => {
-      let itemId = item[field] ? item[field] : 0
-      let labelTitle = item.title ? item.title :
-        (item.name ? item.name : (item['fullName'] ? item['fullName'] : 'default'))
-
       response.push({
-        label: labelTitle,
-        value: itemId
+        label: item[fields.label],
+        id: item[fields.id],
+        value: item[fields.id]
       });
     })
 
