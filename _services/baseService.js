@@ -17,6 +17,7 @@ export default {
 			if (!data) return reject('Data is required')
 			let urlApi = config(configName)//Get url from config
 			let dataRequest = helper.toSnakeCase(data)
+			
 			//Request
 			http.post(urlApi, {attributes:dataRequest}).then(response => {
 				resolve(response.data)//Successful response
@@ -34,10 +35,11 @@ export default {
 	 */
 	index(configName, params = {}) {
 		return new Promise((resolve, reject) => {
-			//Validations
+			//Calidate if exist config name
 			if (!configName) return reject('Config name is required')
-			params.remember == undefined ? params.remember = true : false
-			params.refresh == undefined ? params.refresh = false : true
+			//Default params
+			let defaultParams = {params: {}, refresh : false, remember : true, cacheTime : (3600*3)}
+			params = Object.assign({},defaultParams,params)//Merge params
 
 			let urlApi = config(configName)//Get url from config
 			let requestParams = (params && params.params) ? params.params : false//Get request params
@@ -45,7 +47,7 @@ export default {
 			if (params && params.remember) {
 				let key = !requestParams ? configName : configName + JSON.stringify(requestParams)//Key for rememeber
 				remember.async(//Call method remember
-					key, (3600 * 3),
+					key, params.cacheTime,
 					() => {
 						return http.get(urlApi, {params: requestParams})
 					},params.refresh
@@ -71,20 +73,22 @@ export default {
 	 * @param params {params : {}, remember: boolean}
 	 * @returns {Promise<any>}
 	 */
-	show(configName, criteria, params) {
+	show(configName, criteria, params = {}) {
 		return new Promise((resolve, reject) => {
 			//Validations
 			if (!configName) return reject('Config name is required')
 			if (!criteria) return reject('Criteria is required')
-			params.refresh == undefined ? params.refresh = false : true
+			//Default params
+			let defaultParams = {params: {}, refresh : false, remember : true, cacheTime : (3600*3)}
+			params = Object.assign({},defaultParams,params)//Merge params
 
 			let urlApi = config(configName) + '/' + criteria//Get url from config
-			let requestParams = (params && params.params) ? params.params : false//Get request params
+			let requestParams = (Object.keys(params.params).length) ? params.params : {}//Get request params
 
 			if (params && params.remember) {//Remember request
 				let key = !requestParams ? configName : configName + JSON.stringify(requestParams)//Key for rememeber
 				remember.async(//Call method remember
-					key, (3600 * 3),
+					key, (params.cacheTime),
 					() => {
 						return http.get(urlApi, {params: requestParams})
 					},params.refresh
