@@ -17,7 +17,7 @@ class localForage {
     //Config for LocalForage
     LocalForage.config({
       driver: configDrivers(),
-      name: env('LOCALFORAGE_NAME', 'ProjectDB'),
+      name: this.nameDB(),
       version: 1,
       storeName: 'storage',
     });
@@ -141,11 +141,32 @@ class localForage {
         await this.clear()//Clear all cache
 
         //Restore cache
-        for (var keyName in keysData) { this.set(keyName, keysData[keyName]) }
+        for (var keyName in keysData) {
+          let value = keysData[keyName]
+          if((value != null) && (value != undefined))
+            this.set(keyName, keysData[keyName])
+        }
 
         resolve(true)//Resolve promise
       })
     })
+  }
+
+  //Return name to DB according to domain
+  nameDB() {
+    let hostname = location.hostname.split('.')
+    let response = hostname
+
+    //Set capitalize to all words
+    hostname.forEach((word, index) => {
+      if (index >= 1)
+        hostname[index] = word.charAt(0).toUpperCase() + word.slice(1);
+    })
+
+    //Remove .com .org....
+    if (hostname.length >= 2) response.pop()
+
+    return `${response.join('')}DB`//Response
   }
 }
 
