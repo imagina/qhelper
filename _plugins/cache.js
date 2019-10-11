@@ -1,46 +1,47 @@
-import LocalForage from "localforage";
-import {helper} from "@imagina/qhelper/_plugins/helper";
+import LocalForage from 'localforage'
 
-class localForage {
+class localCache {
+  constructor () {
+    if (process.env.CLIENT) {
+      //Order config to localForage
+      let configDrivers = () => {
+        let drivers = env('LOCALFORAGE_DRIVERS', 'INDEXEDDB,LOCALSTORAGE,WEBSQL').split(',')
+        let data = []
+        drivers.forEach((driver) => {
+          data.push(LocalForage[driver])
+        })
+        return data
+      }
 
-  constructor() {
-    //Order config to localForage
-    let configDrivers = () => {
-      let drivers = env('LOCALFORAGE_DRIVERS', 'INDEXEDDB,LOCALSTORAGE,WEBSQL').split(',')
-      let data = []
-      drivers.forEach((driver) => {
-        data.push(LocalForage[driver])
+      //Config for LocalForage
+      LocalForage.config({
+        driver: configDrivers(),
+        name: this.nameDB(),
+        version: 1,
+        storeName: 'storage',
       })
-      return data
     }
-
-    //Config for LocalForage
-    LocalForage.config({
-      driver: configDrivers(),
-      name: this.nameDB(),
-      version: 1,
-      storeName: 'storage',
-    });
 
     //Contructor of method get
     this.get = {
       //Return data by index name
       item: (index) => {
-        if (index) {
-          return new Promise((resolve, reject) => {
-            LocalForage.getItem(index).then(value => {
-              resolve(value)
-            })
-          })
-        } else {
-          return 'Error: index requiered'
-        }
+        return new Promise((resolve, reject) => {
+          if (index) {
+            if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+            LocalForage.getItem(index).then(value => resolve(value))
+          } else {
+            return reject('Error: index requiered')
+          }
+        })
       },
       //Return data of one or more items
       //param type {array} require
       items: (items) => {
         if (Array.isArray(items) && items.length) {
           return new Promise(async (resolve, reject) => {
+            if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+
             let dataItems = {}
 
             //Get data from all items
@@ -57,21 +58,23 @@ class localForage {
       //return all data
       all: () => {
         return new Promise((resolve, reject) => {
-          //Get all keys in storage
+          if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
 
+          //Get all keys in storage
           LocalForage.keys().then(function (keys) {
             if (keys.length) {
-              let allStorage = {};
+              let allStorage = {}
               //Get data by key
               keys.forEach((key, index) => {
                 LocalForage.getItem(key).then(value => {
                   allStorage[key] = value //Add data from storage
-                  if (keys.length == index)
-                    resolve(allStorage);
+                  if (keys.length == index) {
+                    resolve(allStorage)
+                  }
                 })
               })
             } else {
-              resolve(allStorage);
+              resolve(allStorage)
             }
           })
         })
@@ -80,9 +83,11 @@ class localForage {
   }
 
   //Insert or update
-  set(index, data) {
+  set (index, data) {
     if (index) {
       return new Promise((resolve, reject) => {
+        if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+
         LocalForage.setItem(index, data).then(value => {
           resolve(value)
         }).catch(error => {
@@ -94,9 +99,11 @@ class localForage {
   }
 
   //Remove an item from storage
-  remove(index) {
+  remove (index) {
     if (index) {
       return new Promise((resolve, reject) => {
+        if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+
         LocalForage.removeItem(index).then(value => {
           resolve(true)
         })
@@ -105,9 +112,10 @@ class localForage {
   }
 
   //Return all keys fron storage
-  keys() {
-
+  keys () {
     return new Promise((resolve, reject) => {
+      if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+
       LocalForage.keys().then(value => {
         resolve(value)
       })
@@ -116,8 +124,10 @@ class localForage {
   }
 
   //Remove all items from storage
-  clear() {
+  clear () {
     return new Promise((resolve, reject) => {
+      if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+
       LocalForage.clear().then(value => {
         resolve(true)
       })
@@ -125,8 +135,10 @@ class localForage {
   }
 
   //Restore cache, save any data
-  restore(keys = []) {
+  restore (keys = []) {
     return new Promise((resolve, reject) => {
+      if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
+
       let keysData = {}
 
       //Funtion with loop async, to get value keys
@@ -143,8 +155,9 @@ class localForage {
         //Restore cache
         for (var keyName in keysData) {
           let value = keysData[keyName]
-          if((value != null) && (value != undefined))
+          if ((value != null) && (value != undefined)) {
             this.set(keyName, keysData[keyName])
+          }
         }
 
         resolve(true)//Resolve promise
@@ -153,14 +166,15 @@ class localForage {
   }
 
   //Return name to DB according to domain
-  nameDB() {
-    let hostname = location.hostname.split('.')
+  nameDB () {
+    let hostname = window.location.host.split('.')
     let response = hostname
 
     //Set capitalize to all words
     hostname.forEach((word, index) => {
-      if (index >= 1)
-        hostname[index] = word.charAt(0).toUpperCase() + word.slice(1);
+      if (index >= 1) {
+        hostname[index] = word.charAt(0).toUpperCase() + word.slice(1)
+      }
     })
 
     //Remove .com .org....
@@ -170,11 +184,8 @@ class localForage {
   }
 }
 
-const Forage = new localForage();
+const cache = new localCache()
 
+export default cache
 
-export default ({Vue}) => {
-  Vue.prototype.$storage = Forage;
-}
-
-export {Forage};
+export { cache }

@@ -1,5 +1,3 @@
-import {Cookies, LocalStorage} from 'quasar'
-
 class DatePlugin {
 
   constructor() {
@@ -129,8 +127,6 @@ class DatePlugin {
 
 const date = new DatePlugin();
 
-export default ({Vue}) => {
-  Vue.prototype.$array = date;
-}
+export default date
 
 export {date};

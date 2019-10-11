@@ -1,53 +1,31 @@
-import {Cookies, LocalStorage, Loading, QSpinnerHourglass} from 'quasar'
-import {Forage} from '@imagina/qhelper/_plugins/localForage' //LocalForage
-import {Notify} from 'quasar'
-import Config from 'src/config/index';
-import {array} from "@imagina/qhelper/_plugins/array"
-import alert from "@imagina/qhelper/_plugins/alert";
-import store from 'src/store/index'
-
 class Helper {
-  constructor() {
-    this.storage = Forage
-    this.array = array
-    this.alert = alert
-  }
-
-  loadingShow() {
-    Loading.show({
-      spinner: QSpinnerHourglass,
-      spinnerColor: 'primary',
-      customClass: 'bg-loading no-shadow',
-      message: 'Loading...',
-      messageColor: 'primary',
-      //spinnerSize: 250, // in pixels
-    })
-  }
-
-  loadingHidden() {
-    Loading.hide();
+  constructor () {
   }
 
   /*return timestamp in seconds unix*/
-  timestamp(date = false) {
-    if(!date) date = new Date() //Current date
-    else date = new Date(date)
+  timestamp (date = false) {
+    if (!date) {
+      date = new Date()
+    }//Current date
+    else {
+      date = new Date(date)
+    }
     return date.getTime()
   }
 
   /*mask value with format phone US*/
-  maskPhone(number) {
+  maskPhone (number) {
     if (number) {
       let value = this.getInt(number)
       let response = ''
 
       if (value) {
         value = value.toString()
-        value.length >= 1 ? response += '(' : false;
+        value.length >= 1 ? response += '(' : false
         response += value.substr(0, 3)
-        value.length >= 4 ? response += ') ' : false;
+        value.length >= 4 ? response += ') ' : false
         response += value.substr(3, 3)
-        value.length >= 7 ? response += '-' + value.substr(6, 4) : false;
+        value.length >= 7 ? response += '-' + value.substr(6, 4) : false
       } else {
         response = value ? value[0] : ''
       }
@@ -59,10 +37,10 @@ class Helper {
   }
 
   /*get only numbers from a string*/
-  getInt(value) {
-    let regex = /(\d+)/g;
+  getInt (value) {
+    let regex = /(\d+)/g
     let response = value.match(regex)
-    response = response ? response.join('') : response;
+    response = response ? response.join('') : response
 
     return response
   }
@@ -71,76 +49,62 @@ class Helper {
    * Return range date
    * @param type {string} requiere : ('today','currentMonth','lastMonth')
    */
-  rangeDate(type) {
+  rangeDate (type) {
     type ? true : type = 'today'
 
-    let from = new Date(); //Create object date
-    let to = new Date(); //Create object date
+    let from = new Date() //Create object date
+    let to = new Date() //Create object date
     switch (type) {
       case 'today':
-        break;
+        break
       case 'yesterday':
-        from.setSeconds(-86400);
-        to.setSeconds(-86400);
-        break;
+        from.setSeconds(-86400)
+        to.setSeconds(-86400)
+        break
       case 'tomorrow':
-        from.setSeconds(86400);
-        to.setSeconds(86400);
-        break;
+        from.setSeconds(86400)
+        to.setSeconds(86400)
+        break
       case 'currentMonth':
-        from.setDate(1);
-        to = new Date(to.getFullYear(), from.getMonth() + 1, 0);
-        break;
+        from.setDate(1)
+        to = new Date(to.getFullYear(), from.getMonth() + 1, 0)
+        break
       case 'lastMonth':
-        from = new Date(from.getFullYear(), from.getMonth() - 1, 1);
-        to = new Date(to.getFullYear(), to.getMonth(), 0);
-        break;
+        from = new Date(from.getFullYear(), from.getMonth() - 1, 1)
+        to = new Date(to.getFullYear(), to.getMonth(), 0)
+        break
 
     }
 
     return {
       from: from.getFullYear() + '/' + (from.getMonth() + 1) + '/' + from.getDate(),
       to: to.getFullYear() + '/' + (to.getMonth() + 1) + '/' + to.getDate(),
-    };
+    }
   }
 
   /*set names months in dom*/
-  nameMonths() {
-    var d = new Date();
+  nameMonths () {
+    var d = new Date()
     var mount = d.getMonth()
     var months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ]
 
     return [
-      {label: months[(mount != 0) ? (mount - 1) : 11], value: 'lastMonth'},
-      {label: months[mount], value: 'currentMonth'},
-      {label: 'Today', value: 'today'}
-    ];
-  }
-
-  /**
-   * Clear Cache Data
-   * @param data type {string} required
-   *
-   */
-  async clearCache(data) {
-    await this.storage.keys().then(keys => {
-      keys.forEach(el => {
-        if (el.indexOf(data) > -1)
-          this.storage.remove(el);
-      })
-    });
+      { label: months[(mount != 0) ? (mount - 1) : 11], value: 'lastMonth' },
+      { label: months[mount], value: 'currentMonth' },
+      { label: 'Today', value: 'today' }
+    ]
   }
 
   /**
    * load latitude and logitude
    */
-  async loadPosition() {
+  async loadPosition () {
     try {
-      const position = await this.getCurrentPosition();
-      return position.coords;
+      const position = await this.getCurrentPosition()
+      return position.coords
     } catch (error) {
     }
   }
@@ -148,18 +112,18 @@ class Helper {
   /**
    * get position of navigator
    */
-  getCurrentPosition(options = {}) {
+  getCurrentPosition (options = {}) {
     return new Promise((resolve, reject) => {
-      navigator.permissions.query({'name': 'geolocation'})
-      navigator.geolocation.getCurrentPosition(resolve, reject, options);
-    });
+      navigator.permissions.query({ 'name': 'geolocation' })
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    })
   }
 
   /**
    * Convert fields to frontend
    * @param field
    */
-  convertToFrontField(fields = [], mergeFields = []) {
+  convertToFrontField (fields = [], mergeFields = []) {
     let response = {}
 
     //Merge fields
@@ -167,10 +131,10 @@ class Helper {
       mergeFields.forEach(mergeField => {
         //Search merge field name in fields
 
-        var existField = false;
+        var existField = false
         fields.forEach((field, index) => {
           if (field.name == mergeField.name) {
-            existField = true;
+            existField = true
             if (mergeField.value) {
               fields[index] = mergeField
             } else {
@@ -195,7 +159,7 @@ class Helper {
    * Convert to backend fields
    * @param fields
    */
-  convertToBackField(fields) {
+  convertToBackField (fields) {
     let response = []
     for (var field in fields) {
       response.push(fields[field])
@@ -207,17 +171,17 @@ class Helper {
    * Convert strings to snake_case
    * @param object
    */
-  convertStringToSnakeCase(string) {
+  convertStringToSnakeCase (string) {
     return string.replace(/[\w]([A-Z0-9])/g, function (m) {
-      return m[0] + "_" + m[1];
-    }).toLowerCase();
+      return m[0] + '_' + m[1]
+    }).toLowerCase()
   }
 
   /**
    * Convert object keys to snake_case
    * @param object
    */
-  toSnakeCase(object) {
+  toSnakeCase (object) {
     //function recursive to loop all items from object
     let convertObject = (dataObject) => {
       let response = {}//Object to save fields vonverted
@@ -236,15 +200,16 @@ class Helper {
           }
           //Add to response new Key with Value
           response[this.convertStringToSnakeCase(item)] = (itemValue !== undefined) ? itemValue : null
-        } else
+        } else {
           response[item] = itemValue
+        }
       }
       return response
     }
     return convertObject(object)//Return response
   }
 
-  checkPassword(password) {
+  checkPassword (password) {
     // Must be at least 8 characters and contain a at least 1 lowercase character, at least 1 uppercase character and a number.
     return password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
   }
@@ -253,21 +218,24 @@ class Helper {
    * redirect to google maps with encode address
    * @param address
    */
-  map(address) {
+  map (address) {
     if /* if we're on iOS, open in Apple Maps */
-    ((navigator.platform.indexOf("iPhone") != -1) ||
-      (navigator.platform.indexOf("iPod") != -1))
-      window.open("maps://maps.google.com/maps?q=" + encodeURI(address));
+    ((navigator.platform.indexOf('iPhone') != -1) ||
+      (navigator.platform.indexOf('iPod') != -1)) {
+      window.open('maps://maps.google.com/maps?q=' + encodeURI(address))
+    } else /* else use Google */{
+      window.open('https://maps.google.com/maps?q=' + encodeURI(address))
+    }
+  }
 
-    else /* else use Google */
-      window.open("https://maps.google.com/maps?q=" + encodeURI(address));
+  validateEmail (email) {
+    var re = /\S+@\S+\.\S+/
+    return re.test(email);
   }
 }
 
 const helper = new Helper();
 
-export default ({Vue}) => {
-  Vue.prototype.$helper = helper;
-}
+export default helper;
 
-export {helper};
+export { helper }

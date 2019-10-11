@@ -1,7 +1,7 @@
-import {Notify} from 'quasar'
+import { Notify } from 'quasar'
 
 class Alert {
-  constructor() {
+  constructor () {
     this.defaultParams = {
       message: 'Notify',
       pos: 'top-right',
@@ -11,55 +11,61 @@ class Alert {
   }
 
   //Alert success
-  success(params = {}) {
+  success (params = {}) {
+    if (!params.message) params = { message: params }
     params = Object.assign({}, this.defaultParams, params)
-    params.icon = params.icon || "notifications"
-    params.color = "positive"
+    params.icon = params.icon || 'notifications'
+    params.color = 'positive'
     this.show(params)
   }
 
   //ALert Error
-  error(params = {}) {
+  error (params = {}) {
+    if (!params.message) params = { message: params }
     params = Object.assign({}, this.defaultParams, params)
-    params.icon = params.icon || "error"
-    params.color = "negative"
+    params.icon = params.icon || 'error'
+    params.color = 'negative'
     this.show(params)
   }
 
   //ALert info
-  info(params = {}) {
+  info (params = {}) {
+    if (!params.message) params = { message: params }
     params = Object.assign({}, this.defaultParams, params)
-    params.icon = params.icon || "info"
-    params.color = "cyan"
+    params.icon = params.icon || 'info'
+    params.color = 'cyan'
     this.show(params)
   }
 
   //ALert warning
-  warning(params = {}) {
+  warning (params = {}) {
+    if (!params.message) params = { message: params }
     params = Object.assign({}, this.defaultParams, params)
-    params.icon = params.icon || "warning"
-    params.color = "warning"
+    params.icon = params.icon || 'warning'
+    params.color = 'warning'
     this.show(params)
   }
 
   //ALert light
-  light(params = {}) {
+  light (params = {}) {
+    if (!params.message) params = { message: params }
     params = Object.assign({}, this.defaultParams, params)
-    params.icon = params.icon || "notifications"
-    params.color = "faded"
+    params.icon = params.icon || 'notifications'
+    params.color = 'faded'
     this.show(params)
   }
 
   //ALert dark
-  dark(params = {}) {
+  dark (params = {}) {
+    if (!params.message) params = { message: params }
     params = Object.assign({}, this.defaultParams, params)
-    params.icon = params.icon || "notifications"
-    params.color = "black"
+    params.icon = params.icon || 'notifications'
+    params.color = 'black'
     this.show(params)
   }
 
   //Show alert
-  show(params) {
+  show (params) {
     Notify.create({
       message: params.message,
       icon: params.icon,
@@ -80,6 +86,8 @@ class Alert {
   }
 }
 
-const alert = new Alert();
+const alert = new Alert()
 
 export default alert
+
+export { alert }

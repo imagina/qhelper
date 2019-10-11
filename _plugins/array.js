@@ -1,20 +1,16 @@
-import {Cookies, LocalStorage} from 'quasar'
-
 class Array {
-
-  constructor() {
-
+  constructor () {
   }
 
   //Order array as tree
-  tree(elements, fields = {label: 'title', id: 'id'}) {
+  tree (elements, fields = { label: 'title', id: 'id' }) {
     var trees = []
     var response = []
 
     //Get parents ID
     elements.forEach(item => {
       if (!item.parentId) item.parentId = 0//Default parent ID
-      let findId = false;
+      let findId = false
       elements.forEach(j => {
         if (parseInt(j.id) == parseInt(item.parentId)) findId = j
       })
@@ -25,7 +21,7 @@ class Array {
     let orderItems = (items) => {
       let responseOrder = []
       items.forEach(item => {
-        let itemData = {id: item[fields.id], label: item[fields.label]}
+        let itemData = { id: item[fields.id], label: item[fields.label] }
         if (item.children) itemData.children = orderItems(item.children)
         responseOrder.push(itemData)
       })
@@ -48,20 +44,21 @@ class Array {
     return response//Response
   }
 
-  builTree(elements, parentId = 0) {
-    var branch = [];
+  builTree (elements, parentId = 0) {
+    var branch = []
     elements.forEach(element => {
       element.parentId ? false : element.parentId = 0
       if (element.parentId == parentId) {
-        var children = this.builTree(elements, element.id);
+        var children = this.builTree(elements, element.id)
         let record = element
-        if (children.length)
+        if (children.length) {
           record['children'] = children
-        branch.push(record);
+        }
+        branch.push(record)
       }
     })
 
-    return branch;
+    return branch
   }
 
   /**
@@ -74,14 +71,14 @@ class Array {
    * }]
    *
    */
-  select(dataArray, fields = {label: 'title', id: 'id'}) {
+  select (dataArray, fields = { label: 'title', id: 'id' }) {
     let response = []
     dataArray.forEach((item) => {
       response.push({
         label: item[fields.label],
         id: item[fields.id],
         value: item[fields.id]
-      });
+      })
     })
 
     return response
@@ -104,10 +101,10 @@ class Array {
    * }
    *
    */
-  parents(dataArray, id) {
+  parents (dataArray, id) {
     id = parseInt(id)
 
-    let response = {name: [], id: []}
+    let response = { name: [], id: [] }
 
     if (dataArray) {
       while (id >= 1) {
@@ -138,7 +135,7 @@ class Array {
    * @Return{array} = [1,2,3...] ID of all children
    *
    */
-  children(dataArray, id, excludeParent, type) {
+  children (dataArray, id, excludeParent, type) {
     /*recursive function*/
     let childrens = (parentId) => {
       let response = []
@@ -146,13 +143,13 @@ class Array {
       //add to "response" the ID children of parentId
       dataArray.filter((item) => {
         if (item.parentId == parentId) {
-          if (!type)
+          if (!type) {
             response.push(item.id)
-          else
+          } else {
             response.push(item)
+          }
 
           let children = childrens(item.id) //get children from this source
-
 
           children.length ? response.push(children) : false
         }
@@ -168,28 +165,28 @@ class Array {
   }
 
   /* difference between two arrays */
-  diff(arr1, arr2) {
-    var diff = {};
+  diff (arr1, arr2) {
+    var diff = {}
 
     diff.arr1 = arr1.filter(function (value) {
       if (arr2.indexOf(value) === -1) {
-        return value;
+        return value
       }
-    });
+    })
 
     diff.arr2 = arr2.filter(function (value) {
       if (arr1.indexOf(value) === -1) {
-        return value;
+        return value
       }
-    });
+    })
 
-    diff.concat = diff.arr1.concat(diff.arr2);
+    diff.concat = diff.arr1.concat(diff.arr2)
 
-    return diff;
+    return diff
   };
 
   /* find into array by param*/
-  findByTag(array, tag, value) {
+  findByTag (array, tag, value) {
     let response = false
     if (array && tag && value) {
       array.forEach((item) => {
@@ -204,10 +201,6 @@ class Array {
 
 const array = new Array();
 
-export default ({Vue}) => {
+export default array;
 
-  Vue.prototype.$array = array;
-
-}
-
-export {array};
+export { array };

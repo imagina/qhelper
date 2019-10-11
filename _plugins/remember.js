@@ -1,66 +1,57 @@
-import {Cookies, LocalStorage} from 'quasar'
-import {helper} from '@imagina/qhelper/_plugins/helper';
+import helper from '@imagina/qhelper/_plugins/helper'
+import cache from '@imagina/qhelper/_plugins/cache'
 
 class Remember {
-  
-  constructor() {
-  
+  constructor () {
   }
-  
+
   /*Return data in cache*/
-  sync(key, seconds, callback) {
-    helper.storage.get.item(key).then(response => {
-      let data = response;
-      let difference = data ? this.timestamp() - data.updated_at : seconds;
+  sync (key, seconds, callback) {
+    cache.get.item(key).then(response => {
+      let data = response
+      let difference = data ? this.timestamp() - data.updated_at : seconds
       if (difference >= seconds || !data) {
-        return callback();
+        return callback()
       } else {
         return data.data
       }
     })
   }
-  
+
   /*Return data in cache*/
-  async(key, seconds, callback, refresh) {
+  async (key, seconds, callback, refresh) {
     return new Promise((resolve, reject) => {
-      helper.storage.get.item(key).then(response => {
-        let data = response;
-        let difference = data ? helper.timestamp() - data.updated_at : seconds;
+      cache.get.item(key).then(response => {
+        let data = response
+        let difference = data ? helper.timestamp() - data.updated_at : seconds
         if (difference >= seconds || !data || refresh) {
-          if (navigator.onLine) {
-            callback().then(response => {
-              try {
-                helper.storage.set(key, {
-                  data: response.data.data,
-                  meta: response.data.meta ? response.data.meta : '',
-                  updated_at: helper.timestamp()
-                })
-              } catch (error) {
-                console.log(error)
-              }
-              resolve(response.data);
+          callback().then(response => {
+            try {
+              cache.set(key, {
+                data: response.data.data,
+                meta: response.data.meta ? response.data.meta : '',
+                updated_at: helper.timestamp()
+              })
+            } catch (error) {
+              console.log(error)
+            }
+            resolve(response.data)
+          })
+            .catch(error => {
+              console.log(error)
+              reject(error)
             })
-              .catch(error => {
-                console.log(error);
-                reject(error);
-              });
-          }else {
-            if(data)
-              resolve(data);
-            else
-              reject("offlineMode");
-          }
         } else {
-          resolve(data);
+          resolve(data)
         }
       })
     })
   }
-  
-  refresh(key,data){
-    helper.storage.get.item(key).then(response => {
+
+  refresh (key, data) {
+    cache.get.item(key).then(response => {
       try {
-        helper.storage.set(key, {
+        cache.set(key, {
           data: data,
           meta: response.data.meta ? response.data.meta : '',
           updated_at: helper.timestamp()
@@ -69,21 +60,21 @@ class Remember {
         console.log(error)
       }
     })
-    
+
   }
-  
-  flush(key){
-    helper.storage.remove(key)
+
+  flush (key) {
+    cache.remove(key)
   }
-  
+
 }
 
-const remember = new Remember();
+const remember = new Remember()
 
-export default ({Vue}) => {
-  
-  Vue.prototype.$remember = remember;
-  
+export default ({ Vue }) => {
+
+  Vue.prototype.$remember = remember
+
 }
 
-export {remember};
+export { remember }
