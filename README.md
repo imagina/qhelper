@@ -1,10 +1,10 @@
-## QHELPER 1.0.0
+## QHELPER 2.0.0
 
 This package content methods with helpers to coding more easy and fast 
 
 ## Installation
 
-`` npm i @imagina/qhelper@1.0.0 ``
+`` npm i @imagina/qhelper@2.0.0 ``
 
 ## Base Service
 This services has basic CRUD methods to make request. You can use this service calling `this.$crud` or
