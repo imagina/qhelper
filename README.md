@@ -6,91 +6,46 @@ This package content methods with helpers to coding more easy and fast
 
 `` npm i @imagina/qhelper@2.0.0 ``
 
-## Base Service
-This services has basic CRUD methods to make request. You can use this service calling `this.$crud` or
-import it this way:
-
-```js 
-import crudServices from '@imagina/qhelper/_services/baseService'
-``` 
-- #### Methods
-    - ###### create(configName, data)    
-    - ###### index(configName, params : {params: {'params-request'}, refresh : true, cacheTime: (3600*3)})    
-    - ###### show(configName, criteria, params : {params: {'params-request'}})    
-    - ###### update(configName, criteria, data, params : {params: {'params-request'}})    
-    - ###### delete(configName, criteria, params : {params: {'params-request'}})
-
-- #### Usage: Ejm
-    ``this.$crud.create('apiRoute-name', params : {})``    
-    
 ## Plugins
 - #### Alert
-    Activate alert in bottom-right position. to use it, call `this.$alert` 
-    .You too can import it this way:
-    
-    ```js
-    import alert from '@imagina/qhelper/_plugins/alert'
-    ```
+    Activate alert in bottom-right position. to use it, call `this.$alert`.
     
     The availables types are : `success`, `error`, `info`, `warning`, `light`,`dark`. Usage:
     
     ```js
-    this.$alert.success({message : '', timeOut : 4000})
+    this.$alert.success('message') // To send only the message
+    this.$alert.success({message : '', timeOut : 4000}) //To set timeOut
     ```
     
-- #### Storage
-    Globaly Cache storage is available in `async` way. Usage : `this.$storage`
-    #### Methods
-    - ###### storage.set(key, data)
-      Create/Update data in storage
+- #### Array
+  
+  | Sintax | Description |
+  | ------ | ----------- |
+  | `$array.tree(array, {label, id})` | Format array to use as options in components `tree-select` and `q-select` |      
+  | `$array.parents(array, id)` | Return all parents from array, setting ID parameter to search into a array |      
+  | `$array.children(array, id)` | Return all childrens from array, setting ID parameter to search into a array |      
+  | `$array.diff(array1, array2)` | Search differences between two arrays |           
 
-    - ###### storage.get.item(key)  
-      Get a item from storage  
-            
-    - ###### storage.remove(key)
-      Remove a key from storage 
+- #### Cache
+  
+  Use this plugin to save information in cache of client side
+  
+  | Sintax | Description |
+  | ------ | ----------- |
+  | `$cache.set(key, data)` | Create or update item un cache |    
+  | `$cache.get.item(key)` | Get a item from cache |    
+  | `$cache.get.items([key,key2,...])` | Get items from cache|    
+  | `$cache.remove(key)` | Remove item from cache |
         
-## Methods
-You can use all methods from this package in your `APP` calling `$helper` in the template 
-or `this.$helper` in scripts. you too can import it this way:
-
-    ```js 
-    import {helper} from '@imagina/qhelper/_plugins/helper' 
-    ``` 
-
-- ###### timetamp()
-  Return current date in timestamp format, if set a parameter date, return this date in timestamp format    
-
-- ###### maskPhone(value)
-  Return a number with phone format 
+- #### Helper
   
-- ###### getInt(value)
-  Return only integer values from a string
-  
-- ###### convertToFrontField(fields)
-  Change format to 'fields' data, to use in front-end, if you set a second parameter this will 
-  be merged with the frist parameter
-  
-- ###### convertToBackField(fields)
-  Change format to 'fields' data, to send to back-end
-    
-- ###### convertStringToSnakeCase(string)
-  Change a string to snake case.   
-  
-- ###### toSnakeCase(object)
-  Change keys from object to snake case  
-  
-- ###### checkPassword(password)
-  Check if password has a correct format
-
-- ###### array.tree(array, {label : 'title', id: 'id'})
-  Return a array with options format to use component `tree-select` / `qselect`
-
-- ###### array.parents(array, id)
-  Return all parents from array, setting ID parameter to search into a array
-  
-- ###### array.children(array, id)    
-  Return all childrens from array, setting ID parameter to search into a array
-  
-- ###### array.diff(array1, array2)
-  Search differences between two arrays.
+  | Sintax | Description |
+  | ------ | ----------- |
+  | `$helper.timetamp()` | Return current date in timestamp format, if set a parameter date, return this date in timestamp format |
+  | `$helper.getInt(value)` | Return only integer values from a string |  
+  | `$helper.convertToFrontField(fields)` | Change format to 'fields' data, to use in front-end, if you set a second parameter this will be merged with the frist parameter |  
+  | `$helper.convertToBackField(fields)` | Change format to 'fields' data, to send to back-end |  
+  | `$helper.convertStringToSnakeCase(fields)` | Change a string to snake case. |  
+  | `$helper.toSnakeCase(object)` | Change keys from object to snake case |  
+  | `$helper.checkPassword(pasword)` | Check if password has a correct format |  
+  | `$helper.validateEmail(email)` | Check if email has a correct format |  
