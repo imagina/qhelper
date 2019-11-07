@@ -1,9 +1,9 @@
 class Helper {
-  constructor () {
+  constructor() {
   }
 
-  /*return timestamp in seconds unix*/
-  timestamp (date = false) {
+  //return timestamp in seconds unix
+  timestamp(date = false) {
     if (!date) {
       date = new Date()
     }//Current date
@@ -13,8 +13,8 @@ class Helper {
     return date.getTime()
   }
 
-  /*mask value with format phone US*/
-  maskPhone (number) {
+  //mask value with format phone US
+  maskPhone(number) {
     if (number) {
       let value = this.getInt(number)
       let response = ''
@@ -37,7 +37,7 @@ class Helper {
   }
 
   /*get only numbers from a string*/
-  getInt (value) {
+  getInt(value) {
     let regex = /(\d+)/g
     let response = value.match(regex)
     response = response ? response.join('') : response
@@ -45,11 +45,16 @@ class Helper {
     return response
   }
 
-  /**
-   * Return range date
-   * @param type {string} requiere : ('today','currentMonth','lastMonth')
-   */
-  rangeDate (type) {
+  //Return alpanumeric and symbol (-)
+  getSlug(value) {
+    return value
+      .toLowerCase()
+      .replace(/[^\w ]+/g,'')
+      .replace(/ +/g,'-')
+  }
+
+  //Return range date
+  rangeDate(type) {
     type ? true : type = 'today'
 
     let from = new Date() //Create object date
@@ -82,8 +87,8 @@ class Helper {
     }
   }
 
-  /*set names months in dom*/
-  nameMonths () {
+  //set names months in dom*/
+  nameMonths() {
     var d = new Date()
     var mount = d.getMonth()
     var months = [
@@ -92,16 +97,14 @@ class Helper {
     ]
 
     return [
-      { label: months[(mount != 0) ? (mount - 1) : 11], value: 'lastMonth' },
-      { label: months[mount], value: 'currentMonth' },
-      { label: 'Today', value: 'today' }
+      {label: months[(mount != 0) ? (mount - 1) : 11], value: 'lastMonth'},
+      {label: months[mount], value: 'currentMonth'},
+      {label: 'Today', value: 'today'}
     ]
   }
 
-  /**
-   * load latitude and logitude
-   */
-  async loadPosition () {
+  //load latitude and logitude
+  async loadPosition() {
     try {
       const position = await this.getCurrentPosition()
       return position.coords
@@ -109,21 +112,16 @@ class Helper {
     }
   }
 
-  /**
-   * get position of navigator
-   */
-  getCurrentPosition (options = {}) {
+  // get position of navigator
+  getCurrentPosition(options = {}) {
     return new Promise((resolve, reject) => {
-      navigator.permissions.query({ 'name': 'geolocation' })
+      navigator.permissions.query({'name': 'geolocation'})
       navigator.geolocation.getCurrentPosition(resolve, reject, options)
     })
   }
 
-  /**
-   * Convert fields to frontend
-   * @param field
-   */
-  convertToFrontField (fields = [], mergeFields = []) {
+  //Convert fields to frontend
+  convertToFrontField(fields = [], mergeFields = []) {
     let response = {}
 
     //Merge fields
@@ -155,11 +153,8 @@ class Helper {
     return response
   }
 
-  /**
-   * Convert to backend fields
-   * @param fields
-   */
-  convertToBackField (fields) {
+  //Convert to backend fields
+  convertToBackField(fields) {
     let response = []
     for (var field in fields) {
       response.push(fields[field])
@@ -167,21 +162,15 @@ class Helper {
     return response
   }
 
-  /**
-   * Convert strings to snake_case
-   * @param object
-   */
-  convertStringToSnakeCase (string) {
+  //Convert strings to snake_case
+  convertStringToSnakeCase(string) {
     return string.replace(/[\w]([A-Z0-9])/g, function (m) {
       return m[0] + '_' + m[1]
     }).toLowerCase()
   }
 
-  /**
-   * Convert object keys to snake_case
-   * @param object
-   */
-  toSnakeCase (object) {
+  //Convert object keys to snake_case
+  toSnakeCase(object) {
     //function recursive to loop all items from object
     let convertObject = (dataObject) => {
       let response = {}//Object to save fields vonverted
@@ -209,16 +198,13 @@ class Helper {
     return convertObject(object)//Return response
   }
 
-  checkPassword (password) {
+  checkPassword(password) {
     // Must be at least 8 characters and contain a at least 1 lowercase character, at least 1 uppercase character and a number.
     return password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
   }
 
-  /**
-   * redirect to google maps with encode address
-   * @param address
-   */
-  map (address) {
+  //redirect to google maps with encode address
+  map(address) {
     if /* if we're on iOS, open in Apple Maps */
     ((navigator.platform.indexOf('iPhone') != -1) ||
       (navigator.platform.indexOf('iPod') != -1)) {
@@ -228,7 +214,8 @@ class Helper {
     }
   }
 
-  validateEmail (email) {
+  //Validate Format of email
+  validateEmail(email) {
     var re = /\S+@\S+\.\S+/
     return re.test(email);
   }
@@ -238,4 +225,4 @@ const helper = new Helper();
 
 export default helper;
 
-export { helper }
+export {helper}
