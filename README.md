@@ -1,10 +1,10 @@
-## QHELPER 2.0.1
+## QHELPER 2.0.2
 
 This package content methods with helpers to coding more easy and fast 
 
 ## Installation
 
-`` npm i @imagina/qhelper@2.0.1 ``
+`` npm i @imagina/qhelper@2.0.2 ``
 
 ## Plugins
 - #### Alert
@@ -49,3 +49,4 @@ This package content methods with helpers to coding more easy and fast
   | `$helper.toSnakeCase(object)` | Change keys from object to snake case |  
   | `$helper.checkPassword(pasword)` | Check if password has a correct format |  
   | `$helper.validateEmail(email)` | Check if email has a correct format |  
+  | `$helper.filterOptions(val, options, permitValues)` | Filter options to component qselect |  

@@ -49,8 +49,8 @@ class Helper {
   getSlug(value) {
     return value
       .toLowerCase()
-      .replace(/[^\w ]+/g,'')
-      .replace(/ +/g,'-')
+      .replace(/[^\w ]+/g, '')
+      .replace(/ +/g, '-')
   }
 
   //Return range date
@@ -218,6 +218,29 @@ class Helper {
   validateEmail(email) {
     var re = /\S+@\S+\.\S+/
     return re.test(email);
+  }
+
+  //Filter options to select
+  filterOptions(val, options, permitValues) {
+    if (val === '') return options
+    let responseOptions = []//Response options
+    //Filter
+    for (let opt of options) {
+      //Search in options
+      if (JSON.stringify(opt).toLowerCase().indexOf(val.toLowerCase()) > -1)
+        responseOptions.push(opt)
+      //IF exist param permitvalues, compare if option exist
+      else if (permitValues) {
+        let optValue = opt.value.toString()//Parse value
+        if (typeof (permitValues) == 'object') {
+          permitValues.forEach(item => {
+            if (item.toString() == optValue) responseOptions.push(opt)
+          })
+        } else if (permitValues.toString() == optValue) responseOptions.push(opt)
+      }
+    }
+    //Response
+    return responseOptions
   }
 }
 
