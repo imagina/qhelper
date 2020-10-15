@@ -29,7 +29,7 @@ class localCache {
         return new Promise((resolve, reject) => {
           if (index) {
             if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
-            LocalForage.getItem(index).then(value => resolve(value))
+            LocalForage.getItem(index).then(value => resolve(value)).catch(error => {})
           } else {
             return reject('Error: index requiered')
           }
@@ -71,12 +71,12 @@ class localCache {
                   if (keys.length == index) {
                     resolve(allStorage)
                   }
-                })
+                }).catch(error => {})
               })
             } else {
               resolve(allStorage)
             }
-          })
+          }).catch(error => {})
         })
       }
     }
@@ -106,7 +106,7 @@ class localCache {
 
         LocalForage.removeItem(index).then(value => {
           resolve(true)
-        })
+        }).catch(error => {})
       })
     }
   }
@@ -118,7 +118,7 @@ class localCache {
 
       LocalForage.keys().then(value => {
         resolve(value)
-      })
+      }).catch(error => {})
     })
 
   }
@@ -130,7 +130,7 @@ class localCache {
 
       LocalForage.clear().then(value => {
         resolve(true)
-      })
+      }).catch(error => {})
     })
   }
 
@@ -161,7 +161,7 @@ class localCache {
         }
 
         resolve(true)//Resolve promise
-      })
+      }).catch(error => {})
     })
   }
 

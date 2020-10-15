@@ -15,7 +15,7 @@ class Remember {
       } else {
         return data.data
       }
-    })
+    }).catch(error => {})
   }
 
   /*Return data in cache*/
@@ -44,7 +44,7 @@ class Remember {
         } else {
           resolve(data)
         }
-      })
+      }).catch(error => {})
     })
   }
 
@@ -59,7 +59,7 @@ class Remember {
       } catch (error) {
         console.log(error)
       }
-    })
+    }).catch(error => {})
 
   }
 

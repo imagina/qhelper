@@ -71,7 +71,8 @@ class Alert {
       icon: params.icon,
       timeout: params.action ? 0 : params.timeOut,
       color: params.color,
-      position: params.pos,
+      //position: params.pos,
+      position: 'bottom-right',
       actions: params.action || [
         {
           label: 'Ok',
