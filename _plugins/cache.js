@@ -1,11 +1,11 @@
 import LocalForage from 'localforage'
 
 class localCache {
-  constructor () {
+  constructor() {
     if (process.env.CLIENT) {
       //Order config to localForage
       let configDrivers = () => {
-        let drivers = env('LOCALFORAGE_DRIVERS', 'INDEXEDDB,LOCALSTORAGE,WEBSQL').split(',')
+        let drivers = ['INDEXEDDB', 'LOCALSTORAGE', 'WEBSQL']
         let data = []
         drivers.forEach((driver) => {
           data.push(LocalForage[driver])
@@ -29,7 +29,8 @@ class localCache {
         return new Promise((resolve, reject) => {
           if (index) {
             if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
-            LocalForage.getItem(index).then(value => resolve(value)).catch(error => {})
+            LocalForage.getItem(index).then(value => resolve(value)).catch(error => {
+            })
           } else {
             return reject('Error: index requiered')
           }
@@ -71,19 +72,21 @@ class localCache {
                   if (keys.length == index) {
                     resolve(allStorage)
                   }
-                }).catch(error => {})
+                }).catch(error => {
+                })
               })
             } else {
               resolve(allStorage)
             }
-          }).catch(error => {})
+          }).catch(error => {
+          })
         })
       }
     }
   }
 
   //Insert or update
-  set (index, data) {
+  set(index, data) {
     if (index) {
       return new Promise((resolve, reject) => {
         if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
@@ -99,43 +102,46 @@ class localCache {
   }
 
   //Remove an item from storage
-  remove (index) {
+  remove(index) {
     if (index) {
       return new Promise((resolve, reject) => {
         if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
 
         LocalForage.removeItem(index).then(value => {
           resolve(true)
-        }).catch(error => {})
+        }).catch(error => {
+        })
       })
     }
   }
 
   //Return all keys fron storage
-  keys () {
+  keys() {
     return new Promise((resolve, reject) => {
       if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
 
       LocalForage.keys().then(value => {
         resolve(value)
-      }).catch(error => {})
+      }).catch(error => {
+      })
     })
 
   }
 
   //Remove all items from storage
-  clear () {
+  clear() {
     return new Promise((resolve, reject) => {
       if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
 
       LocalForage.clear().then(value => {
         resolve(true)
-      }).catch(error => {})
+      }).catch(error => {
+      })
     })
   }
 
   //Restore cache, save any data
-  restore (keys = []) {
+  restore(keys = []) {
     return new Promise((resolve, reject) => {
       if (!process.env.CLIENT) return resolve(undefined) //Validate if is side Server
 
@@ -161,12 +167,13 @@ class localCache {
         }
 
         resolve(true)//Resolve promise
-      }).catch(error => {})
+      }).catch(error => {
+      })
     })
   }
 
   //Return name to DB according to domain
-  nameDB () {
+  nameDB() {
     let hostname = window.location.host.split('.')
     let response = hostname
 
@@ -188,4 +195,4 @@ const cache = new localCache()
 
 export default cache
 
-export { cache }
+export {cache}
